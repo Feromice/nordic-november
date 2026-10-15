@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Nordic November 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one centred column of 13 expandable day cards; a time rail on the left of each slot, plan B tucked under the main plan in the same slot. */
+:root{
+  --bg:#EDF1F4; --surface:#FFFFFF; --surface-2:#F5F7F9; --ink:#14202B; --muted:#56646F; --line:#D4DCE3;
+  --accent:#B0243B; --accent-ink:#FFFFFF; --accent-soft:#F8E3E7;
+  --planb:#2B6A58; --planb-soft:#E3F1EC;
+  --plana:#5A3E8E; --plana-soft:#EEE8F7;
+  --warn:#7D5200; --warn-soft:#FBF0D9;
+  --sky:#1F4E79; --sky-soft:#E1ECF6;
+  --poi:#14202B; --poi-bg:#FFE9A8; --poi-line:#E7C35A;
+  --night:#24313D; --day:#F2C14E; --twilight:#7FA3C0;
+  --c-oslo:#B0243B; --c-tromso:#1E7A7A; --c-rovaniemi:#3E6B2E; --c-helsinki:#2453A6; --c-sweden:#A06A00;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1118; --surface:#131C26; --surface-2:#18232F; --ink:#E5ECF2; --muted:#97A5B2; --line:#26333F;
+  --accent:#F06C82; --accent-ink:#1A0A0E; --accent-soft:#3A1A22;
+  --planb:#82D3B8; --planb-soft:#15302A;
+  --plana:#C9AEF2; --plana-soft:#261D38;
+  --warn:#F2C46B; --warn-soft:#33270F;
+  --sky:#93C1EC; --sky-soft:#14283D;
+  --poi:#FFE7A0; --poi-bg:#3A3015; --poi-line:#8C7330;
+  --night:#05080C; --day:#E8B843; --twilight:#4D6A85;
+  --c-oslo:#F06C82; --c-tromso:#5CC8C2; --c-rovaniemi:#8FC977; --c-helsinki:#8DB3F5; --c-sweden:#E7B65A;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1118; --surface:#131C26; --surface-2:#18232F; --ink:#E5ECF2; --muted:#97A5B2; --line:#26333F;
+  --accent:#F06C82; --accent-ink:#1A0A0E; --accent-soft:#3A1A22;
+  --planb:#82D3B8; --planb-soft:#15302A;
+  --plana:#C9AEF2; --plana-soft:#261D38;
+  --warn:#F2C46B; --warn-soft:#33270F;
+  --sky:#93C1EC; --sky-soft:#14283D;
+  --poi:#FFE7A0; --poi-bg:#3A3015; --poi-line:#8C7330;
+  --night:#05080C; --day:#E8B843; --twilight:#4D6A85;
+  --c-oslo:#F06C82; --c-tromso:#5CC8C2; --c-rovaniemi:#8FC977; --c-helsinki:#8DB3F5; --c-sweden:#E7B65A;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* Header */
+.top{padding-block:28px 18px;display:grid;gap:14px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,7vw,56px);line-height:.98;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--muted);margin:0;max-width:62ch}
+.route{display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;font-weight:600;font-size:14px}
+.route .stop{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.route .dot{width:8px;height:8px;border-radius:50%}
+.route .arrow{color:var(--muted);font-family:var(--f-mono);font-size:12px;display:inline-flex;align-items:center}
+.route .arrow svg{width:18px;height:18px}
+.trip-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:-4px}
+.trip-date{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,3.6vw,26px);letter-spacing:-.01em}
+.trip-who{font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
+.tab{border:0;background:transparent;padding:8px 16px;border-radius:999px;font-weight:600;cursor:pointer;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.btn{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:999px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn svg{width:16px;height:16px}
+.copied{font-size:13px;color:var(--planb);font-weight:600}
+.linkbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.linkbox input{flex:1 1 240px;min-width:0;font:inherit;font-family:var(--f-mono);font-size:12px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted);padding-block:6px 14px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.listctl{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Day cards */
+.days{display:grid;gap:12px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.day-head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;width:100%;text-align:left;border:0;background:transparent;padding:14px 16px;cursor:pointer}
+.date{display:grid;grid-template-rows:auto auto auto;justify-items:center;align-content:center;gap:3px;width:56px;padding:7px 0 6px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.date b{font-family:var(--f-display);font-size:26px;line-height:1;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.date small{font-family:var(--f-mono);font-size:10px;line-height:1;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding-left:.12em}
+.date .dow{color:var(--accent);font-weight:500}
+.day.open .date{background:var(--ink);border-color:var(--ink)}
+.day.open .date b{color:var(--surface)}
+.day.open .date small{color:var(--surface);opacity:.75}
+.dh-main{min-width:0;display:grid;gap:5px}
+.dh-title{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.2;text-wrap:balance}
+.dh-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.city{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;letter-spacing:.03em;padding:2px 9px;border-radius:999px;border:1.5px solid currentColor}
+.mode{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.hl{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);font-family:var(--f-mono);font-size:22px;line-height:1;font-weight:500;color:var(--ink);background:var(--surface)}
+.day-head:hover .pm{border-color:var(--accent);color:var(--accent)}
+.day.open .pm{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+.day-body{border-top:1px solid var(--line);padding:6px 16px 16px}
+.light{display:grid;gap:4px;padding-block:10px 6px}
+.light-label{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);font-family:var(--f-mono);flex-wrap:wrap}
+.strip{position:relative;height:10px;border-radius:999px;background:var(--night);overflow:hidden}
+.strip i{position:absolute;top:0;bottom:0}
+.strip .tw{background:var(--twilight)}
+.strip .sun{background:var(--day)}
+.ticks{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--muted)}
+
+.slots{display:grid}
+.slot{display:grid;grid-template-columns:104px 1fr;gap:4px 14px;padding-block:12px;border-top:1px dashed var(--line)}
+.slot:first-child{border-top:0}
+.time{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;padding-top:1px;display:grid;gap:4px;align-content:start}
+.dur{font-size:11px;color:var(--muted)}
+.content{min-width:0;display:grid;gap:7px}
+.who{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.who.adult{color:var(--accent);border-color:var(--accent);background:transparent}
+.main{margin:0}
+.planb{margin:0;font-style:italic;color:var(--planb);background:var(--planb-soft);padding:8px 12px;border-radius:10px}
+.adultb{color:var(--plana);background:var(--plana-soft)}
+.opthead{grid-column:1/-1;font-family:var(--f-display);font-weight:700;font-size:16px;padding:16px 0 4px;border-bottom:1.5px solid var(--ink);margin-bottom:2px}
+.planb b{font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-right:6px}
+.go{margin:0;font-size:14px;color:var(--sky);display:flex;gap:8px;align-items:flex-start}
+.go svg{flex:none;width:16px;height:16px;margin-top:3px}
+.note{margin:0;font-size:13px;color:var(--warn);background:var(--warn-soft);padding:5px 10px;border-radius:8px}
+.note b{letter-spacing:.05em}
+
+.poi{display:inline;font-weight:700;color:var(--poi);background:var(--poi-bg);box-shadow:inset 0 -2px 0 var(--poi-line);padding:0 4px;border-radius:4px;text-decoration:none;white-space:normal}
+.poi:hover{box-shadow:inset 0 -3px 0 var(--accent)}
+.poi::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:5px;vertical-align:1px}
+
+.flight{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:14px;border-radius:12px;background:var(--sky-soft);color:var(--sky)}
+.fl-end{display:grid;gap:2px}
+.fl-end:last-child{text-align:right}
+.fl-end small{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.fl-end b{font-family:var(--f-display);font-size:20px;line-height:1.1}
+.fl-end span{font-family:var(--f-mono);font-size:15px}
+.fl-mid{display:grid;justify-items:center;gap:2px;font-family:var(--f-mono);font-size:12px}
+.fl-mid svg{width:26px;height:26px}
+.fl-mid .fl-no{font-weight:500}
+.fl-mid .fl-air{font-family:var(--f-body);font-weight:700;font-size:13px}
+.fl-mid .fl-model{font-family:var(--f-body);font-size:12px;opacity:.85;text-align:center}
+.citynote{grid-column:1/-1;margin-top:8px;color:var(--sky);background:var(--sky-soft)}
+.citybreak{grid-column:1/-1;display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-block:14px 0}
+.citybreak::after{content:"";flex:1;height:1.5px;background:currentColor;opacity:.4}
+
+/* Packing */
+.pack-intro{display:grid;gap:10px;padding-block:4px 14px}
+.subtabs{display:flex;flex-wrap:wrap;gap:8px;padding-block:4px 14px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:999px;font-weight:600;cursor:pointer;font-size:14px}
+.chip[aria-selected="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.facts{display:grid;gap:18px}
+.hilite{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px 28px}
+.hilite li{position:relative;padding-left:18px;font-size:14px;color:var(--muted);max-width:62ch}
+.hilite li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.hilite b{color:var(--ink);font-weight:700}
+.wx-h{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.wx-scroll{overflow-x:auto}
+.wx table{border-collapse:collapse;width:100%;font-size:14px;min-width:420px}
+.wx th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:6px 10px 6px 0;border-bottom:1.5px solid var(--ink)}
+.wx td{padding:7px 10px 7px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+.wx td:first-child{font-weight:700}
+.wx td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px;min-width:0}
+.fact b{font-family:var(--f-display);font-size:16px}
+.fact span{font-size:13px;color:var(--muted)}
+.pgroup{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px 16px 12px;margin-bottom:12px}
+.pgroup h3{font-family:var(--f-display);font-size:17px;margin:10px 0 4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.pgroup h3 small{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:500}
+.item{display:grid;grid-template-columns:22px 22px 1fr;gap:10px;padding-block:9px;border-top:1px dashed var(--line);align-items:start;cursor:pointer}
+.item:first-of-type{border-top:0}
+.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
+.item .t{min-width:0}
+.grip{width:22px;height:24px;margin:-1px 0 0;padding:0;border:0;background:none;color:var(--muted);cursor:grab;touch-action:none;display:grid;place-items:center;border-radius:6px}
+.grip:hover,.grip:focus-visible{color:var(--ink);background:var(--line)}
+.grip svg{width:12px;height:16px;fill:currentColor}
+.item.dragging{background:var(--surface);box-shadow:0 6px 18px rgb(0 0 0 / .18);border-radius:8px;position:relative;z-index:2;cursor:grabbing}
+.item.dragging .grip{cursor:grabbing}
+body.drag-on{user-select:none;-webkit-user-select:none}
+.item .t b{font-weight:600}
+.item .q{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:6px}
+.item .n{display:block;font-size:13px;color:var(--muted)}
+.item.done .t b{text-decoration:line-through;color:var(--muted)}
+.progress{height:6px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;margin-block:4px 8px}
+.progress i{display:block;height:100%;background:var(--planb);width:0}
+.foot{margin-top:28px;font-size:12px;color:var(--muted);display:grid;gap:4px}
+
+@media (max-width:560px){
+  body{font-size:15px}
+  .day-head{grid-template-columns:auto 1fr auto;gap:10px;padding:12px}
+  .date{width:50px}
+  .date b{font-size:22px}
+  .dh-title{font-size:16px}
+  .hl{white-space:normal}
+  .day-body{padding:4px 12px 14px}
+  .slot{grid-template-columns:1fr;gap:6px}
+  .time{grid-auto-flow:column;justify-content:start;gap:10px;align-items:baseline}
+  .fl-end b{font-size:17px}
+}
+@media (min-width:1100px){ .wrap{max-width:960px} body{font-size:16px} }
+@media (prefers-reduced-motion:no-preference){ .day-body{animation:drop .18s ease-out} @keyframes drop{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}} }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <h1>Nordic <em>November</em></h1>
+    <div class="trip-meta">
+      <span class="trip-date">17 – 29 Nov 2026</span>
+      <span class="trip-who">3 adults + 1 toddler</span>
+    </div>
+    <p class="sub">13 days across Norway, Finland and Sweden: Oslo, the Arctic in Tromsø, Santa's Lapland in Rovaniemi, Helsinki, and a Black Friday drive to Sweden.</p>
+    <div class="route" aria-label="Route: Oslo, fly to Tromsø, fly to Rovaniemi, fly to Helsinki, fly to Oslo, drive to Sweden, drive back to Oslo">
+      <span class="stop"><i class="dot" style="background:var(--c-oslo)"></i>Oslo</span><span class="arrow" title="Flight">✈</span>
+      <span class="stop"><i class="dot" style="background:var(--c-tromso)"></i>Tromsø</span><span class="arrow" title="Flight">✈</span>
+      <span class="stop"><i class="dot" style="background:var(--c-rovaniemi)"></i>Rovaniemi</span><span class="arrow" title="Flight">✈</span>
+      <span class="stop"><i class="dot" style="background:var(--c-helsinki)"></i>Helsinki</span><span class="arrow" title="Flight">✈</span>
+      <span class="stop"><i class="dot" style="background:var(--c-oslo)"></i>Oslo</span><span class="arrow car" title="Own car">CAR</span>
+      <span class="stop"><i class="dot" style="background:var(--c-sweden)"></i>Sweden</span><span class="arrow car" title="Own car">CAR</span>
+      <span class="stop"><i class="dot" style="background:var(--c-oslo)"></i>Oslo</span>
+    </div>
+    <div class="toolbar">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-plan" aria-selected="true" data-view="plan">Itinerary</button>
+        <button class="tab" role="tab" id="tab-pack" aria-selected="false" data-view="pack">Packing list</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="view-plan">
+    <div class="toolbar" style="padding-block:4px 6px">
+      <div class="legend">
+        <span><span class="poi" style="pointer-events:none">Place</span> tap for map</span>
+        <span><i style="font-style:italic;color:var(--plana)">Italic purple</i> = adult plan B (bad weather)</span>
+        <span><i style="font-style:italic;color:var(--planb)">Italic green</i> = toddler plan B</span>
+        <span style="color:var(--sky)">Blue = getting there</span>
+      </div>
+      <div class="listctl">
+        <button class="btn" id="expandAll" type="button">+ Expand all</button>
+        <button class="btn" id="collapseAll" type="button">− Collapse all</button>
+      </div>
+    </div>
+    <div class="days" id="days"></div>
+  </section>
+
+  <section id="view-pack" hidden>
+    <div class="pack-intro">
+      <div class="facts" id="facts"></div>
+    </div>
+    <div class="subtabs" role="tablist" id="packTabs"></div>
+    <div id="packList"></div>
+  </section>
+
+  <footer class="foot">
+    <span>Source: itinerary v4, transport guides and winter packing list v1 (Oct 2026). Times are suggestions; anything marked CHECK needs confirming before booking.</span>
+    <span>Ticks on the packing list are saved in your own browser only.</span>
+  </footer>
+</div>
+
+<script>
+
+const CITY = {
+  oslo:{name:"Oslo",c:"var(--c-oslo)"}, tromso:{name:"Tromsø",c:"var(--c-tromso)"},
+  rovaniemi:{name:"Rovaniemi",c:"var(--c-rovaniemi)"}, helsinki:{name:"Helsinki",c:"var(--c-helsinki)"},
+  sweden:{name:"Sweden",c:"var(--c-sweden)"}
+};
+
+/* [[Place]] or [[Label|map query]] marks a place of interest */
+const DAYS = [
+{d:17,dow:"Tue",city:["oslo"],title:"Arrival day: Oslo's waterfront and Christmas lights",
+ light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
+ hl:["Gardermoen","Oslo Cathedral","MUNCH","Opera House","Jul i Vinterland"],
+ rows:[
+ {t:"12:00–13:00",dur:"1h",text:"Land at [[Oslo Airport Gardermoen|Oslo Airport Gardermoen]]. Passport control and bags.",note:"Send your host your exact landing time."},
+ {t:"13:00–13:30",dur:"30 min",text:"Straight into the city centre.",go:"Flytoget airport express train to Oslo S, ~20 min, every 10–20 min. Buy in the Flytoget app or tap your card at the gate. Leave your big suitcase in a luggage locker at Oslo S.",note:"Check luggage locker availability at Oslo S."},
+ {t:"13:30–14:00",dur:"30 min",text:"[[Oslo Cathedral|Oslo domkirke]] (Domkirken) at Stortorvet: the painted ceiling and the organ.",go:"5-min walk from Oslo S.",note:"Check opening hours; weekday hours can end mid-afternoon."},
+ {t:"14:00–15:00",dur:"1h",text:"[[MUNCH museum|MUNCH Oslo]]: The Scream and the view from the top floor over the fjord.",go:"10-min walk back past Oslo S to Bjørvika."},
+ {t:"15:00–15:45",dur:"45 min",text:"Walk up the marble roof of the [[Opera House|Oslo Opera House]] for sunset (~15:40) over the fjord.",a:"Heavy rain, snow or sleet: skip the slippery roof and watch the sunset from the Opera foyer windows or MUNCH's top floor.",go:"5-min walk from MUNCH."},
+ {t:"15:45–16:15",dur:"30 min",text:"Stroll up [[Karl Johans gate|Karl Johans gate]], Oslo's main street, towards the Parliament.",a:"Duck into [[Steen & Strøm|Steen og Strøm Oslo]] department store or [[Paleet|Paleet Oslo]] shopping arcade on the way.",go:"On foot from the Opera, ~15 min."},
+ {t:"16:15–17:00",dur:"45 min",text:"[[Jul i Vinterland|Spikersuppa Oslo]] Christmas market at Spikersuppa: ice rink, Ferris wheel, food stalls. Try to stay awake until ~21:00 to beat jet lag.",go:"Collect your suitcase at Oslo S on the way home.",note:"Check the 2026 opening date (usually mid-Nov)."}
+ ]},
+{d:18,dow:"Wed",city:["oslo"],title:"Ahus, Bygdøy museums and the harbour",
+ light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
+ hl:["Ahus","Norsk Folkemuseum","Fram Museum","City Hall","Akershus Fortress"],
+ rows:[
+ {t:"08:00–08:40",dur:"40 min",text:"Head out to Lørenskog, just east of Oslo.",go:"Ruter bus, or train + bus, ~35–45 min from central Oslo. Plan the exact route in the Ruter app and buy a 24h ticket there."},
+ {t:"08:40–09:40",dur:"1h",text:"Visit [[Akershus University Hospital (Ahus)|Akershus universitetssykehus]]."},
+ {t:"09:40–10:30",dur:"50 min",text:"Back into town and out to the Bygdøy peninsula.",go:"Bus or train to central Oslo, then bus 30 to Bygdøy. Check the route in the Ruter app."},
+ {t:"10:30–12:00",dur:"1h30",text:"[[Norsk Folkemuseum|Norsk Folkemuseum]]: open-air museum with old farmhouses, a stave church and Christmas displays.",a:"Heavy rain or sleet: stay in the indoor exhibition halls and skip the outdoor farm area."},
+ {t:"12:00–12:30",dur:"30 min",text:"Quick lunch at the museum café, then walk to Bygdøynes.",go:"~15-min walk or bus 30 two stops."},
+ {t:"12:30–14:00",dur:"1h30",text:"[[Fram Museum|Frammuseet]]: walk on the deck of the polar ship. Then the [[Kon-Tiki Museum|Kon-Tiki Museet]] next door.",note:"Check winter opening hours."},
+ {t:"14:00–14:30",dur:"30 min",text:"Back to the centre.",go:"Bus 30 to Rådhuset / Nationaltheatret."},
+ {t:"14:30–15:30",dur:"1h",text:"[[Oslo City Hall|Oslo Rådhus]] (free): the Nobel Peace Prize hall and murals.",note:"Check opening hours (usually until ~16:00)."},
+ {t:"15:30–16:15",dur:"45 min",text:"[[Akershus Fortress|Akershus Festning]] walk for the sunset over the harbour (~15:40).",a:"Bad weather: [[Paradox Museum|Paradox Museum Oslo]], an indoor museum of optical illusions (~1h).",go:"5-min walk from City Hall."},
+ {t:"16:15–17:00",dur:"45 min",text:"[[Aker Brygge and Tjuvholmen|Tjuvholmen]] waterfront in the blue hour, then home.",go:"T-bane from Nationaltheatret."}
+ ]},
+{d:19,dow:"Thu",city:["oslo"],title:"Vigeland Park, Holmenkollen and a fjord sauna",
+ light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
+ hl:["Vigeland Park","Holmenkollen","Frognerseteren","Fjord sauna"],
+ rows:[
+ {t:"08:00–08:30",dur:"30 min",text:"Head out after breakfast. Pack a swimsuit and towel for the sauna.",go:"Tram 12 to Vigelandsparken."},
+ {t:"08:30–10:15",dur:"1h45",text:"[[Vigeland Sculpture Park|Vigelandsparken]] at dawn (free, open 24h): 200+ granite and bronze sculptures, the Monolith, Angry Boy and the bridge. Best light ~08:30–09:30."},
+ {t:"10:15–10:45",dur:"30 min",text:"Up the hill to Holmenkollen.",go:"Walk to Majorstuen, then T-bane line 1 to Holmenkollen, ~20 min."},
+ {t:"10:45–12:30",dur:"1h45",text:"[[Holmenkollen ski jump|Holmenkollbakken]] with the fjord below, then the [[Ski Museum and Ski Jump Tower|Holmenkollen Ski Museum]] (opens ~10:00).",a:"Rain or low cloud: skip the tower top (no view) and spend the time in the indoor Ski Museum.",note:"Check winter opening hours of the museum and tower."},
+ {t:"12:30–13:45",dur:"1h15",text:"Walk uphill (~20 min) to [[Frognerseteren Restaurant|Frognerseteren Restaurant]]. Norwegian lunch by the fireplace and the famous apple cake.",go:"Or T-bane 1 one stop up to Frognerseteren."},
+ {t:"13:45–15:00",dur:"1h15",text:"If there is snow: [[Korketrekkeren toboggan run|Korketrekkeren Oslo]]. Rent sleds at Frognerseteren, ride down, T-bane back up. No snow: forest walk to [[Voksenkollen|Voksenkollen]].",a:"Sleet or heavy snow: stay by the fireplace at Frognerseteren longer, then head down early.",note:"Toboggan season depends on snow; mid-Nov is often too early."},
+ {t:"15:00–15:30",dur:"30 min",text:"Down to the harbour.",go:"T-bane 1 to Nationaltheatret, then a 10-min walk to Aker Brygge."},
+ {t:"15:30–17:00",dur:"1h30",text:"Floating sauna on the Oslofjord: [[KOK Oslo|KOK Oslo Aker Brygge]] or [[Oslo Badstuforening|Oslo Badstuforening Langkaia]]. Sauna in the blue hour, then a cold fjord dip. Works in any weather.",note:"Book a slot online in advance."}
+ ]},
+{d:20,dow:"Fri",city:["oslo","tromso"],title:"Fly north to Tromsø",
+ light:{c:"Tromsø",tw:[8.5,14.5],sun:[10.5,12.5],txt:"Sun 10:30–12:30, twilight 08:30–14:30"},
+ hl:["Flight north","Tromsø harbour","Tromsø Bridge","Aurora chase"],
+ rows:[
+ {t:"06:00–07:30",city:"oslo",text:"Wake up, breakfast, final packing.",note:"Check in online the day before. This flight allows 2 checked bags each, but the Finnair flights from 22 Nov allow only 1, so pack for 1."},
+ {t:"07:30–08:30",dur:"1h",text:"Drive to Gardermoen.",go:"By car, ~45–50 min, plus parking and the walk to the terminal. Allow 1 hour."},
+ {t:"08:30–10:30",dur:"2h",text:"At the airport: bag drop, security, boarding."},
+ {kind:"flight",from:"Oslo",fromT:"10:30",to:"Tromsø",toT:"12:30",airline:"Norwegian",model:"Boeing 737"},
+ {t:"12:30–14:00",dur:"1h30",city:"tromso",text:"Into town and check in at your accommodation in the city centre, near the harbour. Lunch nearby.",go:"Airport Express bus (luggage space, ~NOK 125 adult) or taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags.",b:"A taxi with a child seat is easiest with stroller and bags."},
+ {t:"14:00–16:30",dur:"2h30",text:"City walk on the west side of the Tromsø Bridge: [[Storgata|Storgata Tromsø]], the [[harbour|Tromsø harbour]], the [[smallest bar|Tromsø smallest bar]], and views of the [[Tromsø Bridge|Tromsøbrua]] and the [[Arctic Cathedral|Ishavskatedralen]] at blue hour.",a:"Heavy snow or rain: [[Polar Museum|Polarmuseet Tromsø]] by the harbour, indoors (~1h).",b:"Short loops between warm stops: the library, cafés, Nerstranda mall. Smallest bar: one adult pops in while the others wait in a café.",go:"All walkable from the accommodation.",note:"The famous northernmost McDonald's closed in 2016. Check if any branch is open now."},
+ {t:"18:00–01:00",dur:"6–8h",text:"Adult option: [[Northern lights chase|Tromsø northern lights tour]] by minibus. Often −10 °C or colder, may drive towards the Finnish border if cloudy.",b:"Split up: tonight you and one host go while the other stays with the toddler; swap on 21 Nov. Family option: an evening [[Fjellheisen|Fjellheisen Tromsø]] ride, or a short taxi to [[Prestvannet lake|Prestvannet]] for 30–60 min of sky-watching with an aurora app.",go:"Tour operators pick up in the centre.",note:"Book ahead; most allow free cancellation on a bad forecast. Check minimum age."}
+ ]},
+{d:21,dow:"Sat",city:["tromso"],title:"Arctic Cathedral, cable car and seals",
+ light:{c:"Tromsø",tw:[8.5,14.5],sun:[10.5,12.5],txt:"Sun 10:30–12:30, twilight 08:30–14:30"},
+ hl:["Arctic Cathedral","Fjellheisen","Polaria","Library"],
+ rows:[
+ {t:"07:00–09:00",text:"Breakfast at the accommodation, dress warm."},
+ {t:"09:30–10:15",dur:"45 min",text:"[[Arctic Cathedral|Ishavskatedralen]] across the bridge.",go:"Bus 26 (also 20, 24, 28), ~10 min, NOK 50 single or NOK 140 for 24h; under-6s ride free. Or walk ~20 min over the bridge.",note:"Check winter visiting hours; often limited."},
+ {t:"10:30–13:00",dur:"2h30",text:"[[Fjellheisen cable car|Fjellheisen Tromsø]] up to Storsteinen in the brightest hours: pink polar-night light over the city. Lunch at the Fjellstua café on top.",a:"Strong wind closes the cable car: go to [[Polaria|Polaria Tromsø]] instead.",b:"The stroller goes on the cable car; carry the toddler on the icy viewing deck.",go:"Walk ~15 min from the Cathedral, or bus 26 to Solliveien. Bus 26 back to town.",note:"Check on the day."},
+ {t:"13:30–15:30",dur:"2h",text:"[[Polaria|Polaria Tromsø]] arctic aquarium: bearded seals and feeding sessions.",b:"Top toddler pick: indoors, short, animals.",go:"10–15 min walk south along the waterfront.",note:"Check seal feeding times."},
+ {t:"15:30–17:00",dur:"1h30",text:"[[Tromsø Library|Tromsø bibliotek]]: striking architecture, warm, kids' corner. Or a rest at the accommodation."},
+ {t:"Full day alt.",text:"Adult option: whale safari (8–10h; in Nov whales are often far north near Skjervøy) or husky sledding on Kvaløya.",b:"Shorter silent hybrid fjord cruise (~3h, kids allowed), or reindeer feeding and a short sled ride at a Sami camp with the toddler on a lap.",note:"Book ahead. Check child age limits per operator."},
+ {t:"Evening",text:"Adult option: northern lights chase, night 2 (swap adults). Or a [[midnight concert at the Arctic Cathedral|Ishavskatedralen]].",b:"Same family options as 20 Nov: Fjellheisen at night or Prestvannet lake."}
+ ]},
+{d:22,dow:"Sun",city:["tromso","rovaniemi"],title:"Into Finland and Santa's world",
+ light:{c:"Rovaniemi (Finnish time)",tw:[8.5,15.5],sun:[10,14],txt:"Sun 10:00–14:00"},
+ hl:["Flight to Lapland","SantaPark","Arktikum"],
+ rows:[
+ {t:"06:00–09:00",city:"tromso",text:"Breakfast, check out of the accommodation and go to the airport. Be at the airport by 08:30 at the latest.",go:"Airport Express bus (luggage space, check the early-morning timetable) or a pre-booked taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags.",note:"Check in online (Finnair opens 36h before). Finnair allows only 1 checked bag each; weigh bags before leaving."},
+ {kind:"flight",from:"Tromsø",fromT:"10:25",to:"Rovaniemi",toT:"12:35",airline:"Finnair",model:"Airbus A320 family"},
+ {t:"13:00–14:30",dur:"1h30",city:"rovaniemi",cnote:"Finland is 1 hour ahead of Norway. Set your watch forward; all times from here are Finnish time.",text:"Check in at your accommodation in the city centre. Lunch.",go:"Airport Express waits for each flight and stops in the city centre, a short walk from your accommodation (~€7–8, card only). Taxi ~€25–35, but a child under 3 needs a car seat: bring one or pre-book. Bus 8 does not go to the airport."},
+ {t:"14:30–18:00",dur:"3h30",text:"[[SantaPark|SantaPark Rovaniemi]]: Santa's underground cavern, so darkness and weather do not matter. Closes 18:00.",b:"If SantaPark is not open yet: [[Arktikum|Arktikum Rovaniemi]] (walkable from the accommodation) or straight to Santa Claus Village, open daily. SantaPark lends pushchairs for a €30 deposit.",go:"Bus 8 does NOT stop at SantaPark. Use the Santa's Express shuttle or a taxi. Bus 8 runs rarely on Sundays.",note:"Check the SantaPark 2026 opening date; the season often starts mid/late Nov."},
+ {t:"Swap",text:"Easier option: swap 22 and 23 Nov. Today becomes an easy afternoon at Arktikum and the riverside; Santa Claus Village and SantaPark move to Monday, when Bus 8 runs every ~45 min.",b:"Better for the toddler: fewer bus waits in the dark."},
+ {t:"Evening",text:"Adult option: minibus aurora hunt, or a snowmobile tour if there is enough snow (drivers need a driving licence).",b:"Walk to the riverside by the [[Jätkänkynttilä bridge|Jätkänkynttilä Rovaniemi]] or [[Ounasvaara hill|Ounasvaara]] for 30–60 min of sky-watching; one adult does the tour while another stays.",note:"In 2022 and 2024 late November was almost snow-free; snowmobile tours may not run yet."}
+ ]},
+{d:23,dow:"Mon",city:["rovaniemi"],title:"Crossing the Arctic Circle",
+ light:{c:"Rovaniemi",tw:[8.5,15.5],sun:[10,14],txt:"Sun 10:00–14:00"},
+ hl:["Santa Claus Village","Santa Claus Office","Reindeer ride","Husky ride"],
+ rows:[
+ {t:"07:00–09:00",text:"Breakfast and get ready. Laundry at the accommodation if needed."},
+ {t:"09:00–09:45",dur:"45 min",text:"Ride out to the Arctic Circle.",go:"Bus 8 from the city-centre stop nearest the accommodation (find it in the Waltti app), ~30 min, weekday runs every ~45 min. €3.30 single in the Waltti app, stroller free."},
+ {t:"09:45–10:30",dur:"45 min",text:"The Arctic Circle line and [[Santa Claus Main Post Office|Santa Claus Main Post Office]]. Send a card to arrive at Christmas."},
+ {t:"10:30–11:30",dur:"1h",text:"[[Santa Claus Office|Santa Claus Office Rovaniemi]]: meet Santa (free visit, photos cost extra). Go early; queues grow.",b:"The toddler's highlight. Go before nap time."},
+ {t:"11:30–12:30",dur:"1h",text:"Lunch in the village."},
+ {t:"12:30–14:30",dur:"2h",text:"[[Reindeer sleigh ride|Santa Claus Reindeer Rovaniemi]] in the village for everyone, and reindeer feeding. Adult option: a longer husky safari (2–3h) in the last daylight.",b:"Short reindeer or husky ride with the toddler on a lap, and reindeer petting.",note:"Without snow, husky farms often run wheeled dog-carts instead of sleds. Check age limits."},
+ {t:"14:30–17:00",dur:"2h30",text:"[[SantaPark|SantaPark Rovaniemi]] if not done yesterday, or more time in the village: the Arctic Circle crossing certificate, shops and cafés.",go:"SantaPark is ~2 km from the village: taxi or Santa's Express shuttle. Don't walk the road in the dark with a stroller.",note:"Snowman World (ice slide, ice bar) usually opens in early December, so it is likely closed on your dates."},
+ {t:"Evening",text:"Adult option: sauna and ice-hole swim.",b:"[[Santasport spa|Santasport Rovaniemi]]: warm kids' pool."}
+ ]},
+{d:24,dow:"Tue",city:["rovaniemi","helsinki"],title:"Arktikum, then south to Helsinki",
+ light:{c:"Rovaniemi",tw:[8.5,15.5],sun:[10,14],txt:"Rovaniemi sun 10:00–14:00 · Helsinki 08:50–15:30"},
+ hl:["Arktikum","Flight south","Christmas Street","Stockmann windows"],
+ rows:[
+ {t:"06:00–09:30",city:"rovaniemi",text:"Breakfast, pack and check out. Ask the accommodation about luggage storage.",note:"Check in online for the Helsinki flight."},
+ {t:"09:30–10:00",dur:"30 min",text:"Riverside walk: [[Jätkänkynttilä bridge|Jätkänkynttilä Rovaniemi]] and [[Lordi Square|Lordin aukio Rovaniemi]].",go:"On foot from the accommodation."},
+ {t:"10:00–11:45",dur:"1h45",text:"[[Arktikum|Arktikum Rovaniemi]]: Arctic science centre and museum, indoors.",b:"[[Pilke Science Centre|Pilke Rovaniemi]] next door: hands-on forest centre for kids.",note:"Check Tuesday opening hours."},
+ {t:"11:45–12:30",dur:"45 min",text:"Lunch, collect bags."},
+ {t:"12:30–13:05",dur:"35 min",text:"To the airport. Be there by 13:05.",go:"Pre-booked taxi (child seat), ~15 min plus waiting time, or the Airport Express city pickup (check times at airportbus.fi)."},
+ {t:"13:05–15:05",dur:"2h",text:"At the airport: bag drop, security, boarding."},
+ {kind:"flight",from:"Rovaniemi",fromT:"15:05",to:"Helsinki",toT:"16:25",airline:"Finnair",model:"Airbus A320 family"},
+ {t:"16:30–17:30",dur:"1h",city:"helsinki",text:"Check in at your accommodation right next to Helsinki Central Station.",go:"Train I or P from under the terminal to Helsinki Central, ~30 min, every ~10 min. ABC ticket €4.50 in the HSL app; the adult pushing the stroller rides free."},
+ {t:"17:30–20:00",dur:"2h30",text:"[[Aleksanterinkatu Christmas Street|Aleksanterinkatu Helsinki]] lights and the [[Stockmann Christmas windows|Stockmann Helsinki]], then dinner.",go:"5-min walk from the accommodation.",note:"Check that Christmas Street is lit by 24 Nov."}
+ ]},
+{d:25,dow:"Wed",city:["helsinki"],title:"Sea fortress and the harbour",
+ light:{c:"Helsinki",tw:[8.1,16.2],sun:[8.83,15.5],txt:"Sun 08:50–15:30"},
+ hl:["Senate Square","Market Square","Suomenlinna","Fleet Park"],
+ rows:[
+ {t:"07:00–08:45",text:"Breakfast."},
+ {t:"08:45–09:30",dur:"45 min",text:"[[Senate Square|Senate Square Helsinki]] and [[Helsinki Cathedral|Helsinki Cathedral]] (steep steps).",b:"A carrier is easier than the stroller on the steps.",go:"~10-min walk from the accommodation."},
+ {t:"09:30–10:15",dur:"45 min",text:"[[Market Square|Kauppatori Helsinki]] and the [[Old Market Hall|Vanha kauppahalli]] for snacks and coffee."},
+ {t:"10:20–13:30",dur:"3h",text:"[[Suomenlinna|Suomenlinna]] sea fortress (UNESCO): King's Gate, the church-lighthouse and the visitor centre.",a:"Storm or sleet: skip the ferry and visit [[Amos Rex|Amos Rex Helsinki]] or the [[Ateneum|Ateneum]] art museum instead.",b:"Gravel and cobbles: carrier or sled, not a light stroller. Bring snacks; many cafés close in winter.",go:"HSL ferry from Market Square, ~15–20 min, runs all year. AB ticket €3.30 in the app; no cash on board.",note:"Check winter ferry times and café opening."},
+ {t:"13:30–15:30",dur:"2h",text:"Ferry back, walk past [[Uspenski Cathedral|Uspenski Cathedral]] to [[Laivastopuisto (Fleet Park)|Laivastopuisto Helsinki]] on the Katajanokka waterfront, then back through [[Esplanadi park|Esplanadi Helsinki]] before dark.",b:"The Fleet Park playground is the point of this stop for the toddler. Too cold or tired: [[SEA LIFE Helsinki|SEA LIFE Helsinki]] indoor aquarium (~1.5h) instead.",go:"15–20 min walk from Market Square, or tram 4. SEA LIFE: tram 3 or 9.",note:"Sea wind; dress warm."},
+ {t:"If time",text:"[[Sibelius Monument|Sibelius Monument]] or [[Temppeliaukio Rock Church|Temppeliaukio Church]].",go:"Sibelius: tram 2 or 4, or bus 24."},
+ {t:"Evening",text:"Adult option: [[Allas Sea Pool|Allas Sea Pool]] or [[Löyly sauna|Löyly Helsinki]] with a Baltic Sea dip (you and one host, then swap).",b:"Allas warm pool with a parent, or an early night at the accommodation.",note:"Check child rules at Allas."}
+ ]},
+{d:26,dow:"Thu",city:["helsinki","oslo"],title:"Art morning, back to Oslo",
+ light:{c:"Helsinki",tw:[8.1,16.2],sun:[8.83,15.5],txt:"Sun 08:50–15:30"},
+ hl:["Ateneum","Oodi Library","Rock Church","Flight home"],
+ rows:[
+ {t:"06:00–08:30",city:"helsinki",text:"Breakfast, pack, leave bags at the accommodation.",note:"Check in online for the Oslo flight."},
+ {t:"08:30–10:30",dur:"2h",text:"Adult option: [[Ateneum art museum|Ateneum]] (opens ~10:00) or [[Kiasma|Kiasma]].",b:"[[Oodi Central Library|Oodi Helsinki]]: opens 08:00 on weekdays, free, big kids' floor, 5 min from Ateneum. Swap halfway."},
+ {t:"10:30–12:30",dur:"2h",text:"[[Temppeliaukio Rock Church|Temppeliaukio Church]] or the [[Kamppi Chapel of Silence|Kamppi Chapel]]. Lunch."},
+ {t:"12:30–13:15",dur:"45 min",text:"Collect bags at the accommodation and walk to the platform."},
+ {t:"13:15–14:00",dur:"45 min",text:"To the airport. Be there by 14:00.",go:"Train I or P from Helsinki Central, ~30 min, every ~10 min. ABC ticket as on arrival."},
+ {t:"14:00–16:00",dur:"2h",text:"At the airport: bag drop, security, boarding."},
+ {kind:"flight",from:"Helsinki",fromT:"16:00",to:"Oslo",toT:"16:35",airline:"Finnair",model:"Embraer E190"},
+ {t:"16:35–20:00",city:"oslo",cnote:"Norway is 1 hour behind Finland. Set your watch back.",text:"Land in Oslo, pick up the car and drive home. Easy dinner and an early night.",go:"By car, ~45–50 min."}
+ ]},
+{d:27,dow:"Fri",city:["sweden"],title:"Black Friday in Sweden: pick your option",
+ light:{c:"Oslo / Svinesund",tw:[8.0,16.2],sun:[8.75,15.42],txt:"Sun 08:45–15:25"},
+ hl:["Nordby Shopping Center","or Gothenburg (2 days)"],
+ rows:[
+ {kind:"opt",label:"Option 1 · Nordby Shopping Center (day trip)"},
+ {t:"08:30–10:00",dur:"1h30",text:"Drive south to the Swedish border.",go:"By car, ~1h15–1h30 on E6."},
+ {t:"10:00–15:00",dur:"5h",text:"[[Nordby Shopping Center|Nordby Shoppingcenter Svinesund]] on the Swedish side: Black Friday deals, cheaper groceries and sweets, lunch.",b:"Fully toddler-friendly and indoors; the car means naps on the way.",note:"Bring your passport for random border checks. Check duty-free limits for goods brought back to Norway."},
+ {t:"15:00–15:30",dur:"30 min",text:"Optional stop at [[Strömstad harbour|Strömstad]] before dark.",go:"~15 min further by car."},
+ {t:"15:30–17:00",dur:"1h30",text:"Drive home.",go:"By car, ~1h30."},
+ {kind:"opt",label:"Option 2 · Gothenburg, 27–28 Nov (1 night)"},
+ {t:"06:11–09:45",dur:"3h30",text:"Train to Gothenburg.",go:"Vy train from Oslo S, ~3h30. Lowfare from NOK 309; book early."},
+ {t:"10:00–16:00",dur:"6h",text:"Black Friday at [[Nordstan|Nordstan Göteborg]], Scandinavia's big city-centre mall, then the wooden houses and cafés of [[Haga|Haga Göteborg]] for a fika.",a:"Heavy rain: stay in Nordstan; it's all indoors."},
+ {t:"Evening",text:"Check in to accommodation near the station and dinner in town.",note:"Accommodation for 27 Nov not booked yet."},
+ {t:"Toddler",text:"",b:"One host and the toddler stay in Oslo or do Option 1; you and the other adult go to Gothenburg."}
+ ]},
+{d:28,dow:"Sat",city:["oslo"],title:"Last day: Oslo shopping or Gothenburg day 2",
+ light:{c:"Oslo",tw:[8.0,16.2],sun:[8.75,15.42],txt:"Sun 08:45–15:25"},
+ hl:["Karl Johans gate","Steen & Strøm","Oslo City","or Liseberg"],
+ rows:[
+ {kind:"opt",label:"Option 2 · Gothenburg, day 2"},
+ {t:"10:00–15:00",dur:"5h",text:"[[Liseberg Christmas market|Liseberg]]: one of Scandinavia's biggest Christmas markets, with millions of lights, then last shopping.",note:"Check Liseberg's Christmas opening hours for Saturdays."},
+ {t:"15:00–18:10",dur:"",text:"Free time near the station, dinner."},
+ {t:"18:10–21:45",dur:"3h30",text:"Train back to Oslo. Pack tonight.",go:"Vy train, last departure back ~18:10."},
+ {kind:"opt",label:"Option 3 · Last day in Oslo, shopping only"},
+ {t:"10:00–13:00",dur:"3h",text:"Souvenirs and Christmas shopping along [[Karl Johans gate|Karl Johans gate]]: [[Steen & Strøm|Steen og Strøm Oslo]] department store, [[Paleet|Paleet Oslo]] and [[Glasmagasinet|Glasmagasinet Oslo]].",b:"All indoors and stroller-friendly; Steen & Strøm has baby-changing rooms."},
+ {t:"13:00–14:00",dur:"1h",text:"Lunch in town."},
+ {t:"14:00–17:00",dur:"3h",text:"Malls by the station: [[Oslo City|Oslo City kjøpesenter]] and [[Byporten|Byporten Shopping]]. Shops close on Sunday, so buy everything today. Pack tonight.",go:"T-bane or tram to Jernbanetorget / Oslo S."}
+ ]},
+{d:29,dow:"Sun",city:["oslo"],title:"Flying home",
+ light:{c:"Oslo",tw:[8.0,16.2],sun:[8.75,15.42],txt:"Sun 08:45–15:25"},
+ hl:["Gardermoen","Departure ~12:00"],
+ rows:[
+ {t:"06:00–09:00",text:"Breakfast and final packing.",note:"Check in online and confirm your flight time (planned ~12:00)."},
+ {t:"09:00–10:00",dur:"1h",text:"Your host drives you to [[Oslo Airport Gardermoen|Oslo Airport Gardermoen]].",go:"By car, ~45–50 min. Allow 1 hour."},
+ {t:"10:00–12:00",dur:"2h",text:"At the airport: bag drop, security, boarding. Safe travels!"}
+ ]}
+];
+
+const PLANE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>';
+const GO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21l-1-4M16 21l1-4"/><circle cx="8" cy="14" r=".5"/><circle cx="16" cy="14" r=".5"/></svg>';
+
+const CAR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v2H3z"/><path d="M5 11h14"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/></svg>';
+document.querySelectorAll(".route .car").forEach(el=>el.innerHTML=CAR);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function rich(s){
+  return esc(s).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,label,q)=>{
+    const url="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q||label);
+    return `<a class="poi" href="${url}" target="_blank" rel="noopener">${label}</a>`;
+  });
+}
+function pct(h){return ((h-6)/16*100).toFixed(2)+"%"} /* axis 06:00–22:00 */
+function strip(l){
+  return `<div class="light"><div class="light-label"><span>Daylight · ${esc(l.c)}</span><span>${esc(l.txt)}</span></div>
+  <div class="strip" role="img" aria-label="${esc(l.txt)}">
+   <i class="tw" style="left:${pct(l.tw[0])};width:calc(${pct(l.tw[1])} - ${pct(l.tw[0])})"></i>
+   <i class="sun" style="left:${pct(l.sun[0])};width:calc(${pct(l.sun[1])} - ${pct(l.sun[0])})"></i></div>
+  <div class="ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></div></div>`;
+}
+function slot(r){
+  let pre="";
+  if(r.city){const c=CITY[r.city];pre=`<div class="citybreak" style="color:${c.c}">In ${c.name}</div>`+(r.cnote?`<p class="note citynote">${esc(r.cnote)}</p>`:"");}
+  if(r.kind==="opt") return `<div class="opthead">${esc(r.label)}</div>`;
+  if(r.kind==="flight"){
+    return pre+`<div class="flight"><div class="fl-end"><small>Depart</small><b>${esc(r.from)}</b><span>${esc(r.fromT)}</span></div>
+     <div class="fl-mid">${PLANE}<span class="fl-air">${esc(r.airline)}</span><span class="fl-model">${esc(r.model)}</span></div>
+     <div class="fl-end"><small>Arrive</small><b>${esc(r.to)}</b><span>${esc(r.toT)}</span></div></div>`;
+  }
+  return pre+`<div class="slot"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
+   <div class="content">${r.text?`<p class="main">${rich(r.text)}</p>`:""}
+   ${r.a?`<p class="planb adultb"><b>Adult plan B · indoor</b>${rich(r.a)}</p>`:""}
+   ${r.b?`<p class="planb"><b>Toddler plan B</b>${rich(r.b)}</p>`:""}
+   ${r.go?`<p class="go">${GO}<span>${rich(r.go)}</span></p>`:""}
+   ${r.note?`<p class="note"><b>CHECK</b> ${rich(r.note)}</p>`:""}</div></div>`;
+}
+
+let open=new Set();
+try{open=new Set(JSON.parse(localStorage.getItem("nn-open")||"[]"))}catch(e){}
+function saveOpen(){try{localStorage.setItem("nn-open",JSON.stringify([...open]))}catch(e){}}
+
+function renderDays(){
+  const host=document.getElementById("days");
+  host.innerHTML=DAYS.map(d=>{
+    const isOpen=open.has(d.d);
+    const cities=d.city.map(k=>`<span class="city" style="color:${CITY[k].c}">${CITY[k].name}</span>`).join('<span class="arrow" aria-hidden="true" style="color:var(--muted);font-size:12px">✈</span>');
+    return `<article class="day ${isOpen?"open":""}" id="nov${d.d}">
+      <button class="day-head" type="button" aria-expanded="${isOpen}" aria-controls="b${d.d}" data-d="${d.d}">
+        <span class="date"><small class="dow">${d.dow}</small><b>${d.d}</b><small class="mon">Nov</small></span>
+        <span class="dh-main"><span class="dh-title">${esc(d.title)}</span>
+          <span class="dh-meta">${cities}</span>
+          <span class="hl">${d.hl.map(esc).join(" · ")}</span></span>
+        <span class="pm" aria-hidden="true">${isOpen?"−":"+"}</span>
+      </button>
+      <div class="day-body" id="b${d.d}" ${isOpen?"":"hidden"}>${strip(d.light)}<div class="slots">${d.rows.map(slot).join("")}</div></div>
+    </article>`;
+  }).join("");
+}
+document.getElementById("days").addEventListener("click",e=>{
+  const h=e.target.closest(".day-head"); if(!h) return;
+  const d=+h.dataset.d; open.has(d)?open.delete(d):open.add(d); saveOpen();
+  const card=h.parentElement, body=card.querySelector(".day-body"), on=open.has(d);
+  card.classList.toggle("open",on); body.hidden=!on; h.setAttribute("aria-expanded",on);
+  h.querySelector(".pm").textContent=on?"−":"+";
+});
+document.getElementById("expandAll").onclick=()=>{DAYS.forEach(d=>open.add(d.d));saveOpen();renderDays()};
+document.getElementById("collapseAll").onclick=()=>{open.clear();saveOpen();renderDays()};
+
+
+/* ---------- Packing ---------- */
+const FACTS=[
+ ["1 checked bag each","Finnair allows 1 × 23 kg plus an 8 kg carry-on. Pack for that from day one."],
+ ["Waterproof and warm, both","Between 2021 and 2025, the same late-November dates swung from +12 °C to −11 °C. Expect thaw and hard frost in the same trip."],
+ ["Ice is the real hazard","Rovaniemi was almost snow-free and icy in 2022 and 2024, and Tromsø turned to rain and sleet in late Nov 2025. Ice grips for every adult."],
+ ["Lapland can still bite","Rovaniemi averages −6 to −1 °C in November, and 2025 was very cold. Wool layers and a face cover for evenings out."],
+ ["Wear the heavy layers","Boots, down jacket and wool layers on every flight."],
+ ["2–4 hours of light","Reflectors and headlamps near roads, especially with a toddler."]
+];
+const WX=[
+ ["Oslo","+2 / −3 °C","From −11 °C to +12 °C; mostly dry"],
+ ["Tromsø","−1 / −4 °C","Snow showers, turning to sleet and rain in some years"],
+ ["Rovaniemi","−1 / −6 °C","Snowy in 2023 and 2025; nearly snow-free in 2022 and 2024"],
+ ["Helsinki","+3 / −2 °C","From −11 °C to +8 °C; rain or sleet on about half the days"]
+];
+const PACK={
+ adults:{label:"Adults",groups:[
+  {h:"Documents and money",items:[
+   ["Passport valid 3+ months after 29 Nov","Everyone","Including the toddler. Airlines check ID on the Finland flights."],
+   ["Residence card, if you live in Norway","","Carry it with your passport when leaving Norway."],
+   ["Visitors: ETIAS","","ETIAS is a new online entry permit (about €20) for visa-free, non-EU visitors to Schengen countries, Norway included. Its launch has been pushed to 2027, so it should not be needed for this trip. Check the official EU ETIAS site a week before flying."],
+   ["Flight e-tickets and accommodation confirmations","","Finnair online check-in opens 36h before."],
+   ["Tour bookings and pickup points","","Keep screenshots; data is slow on tours."],
+   ["Health cover","","Norway residents: European Health Insurance Card (free from helsenorge.no). Visitors: travel insurance with medical cover for Norway, Finland and Sweden."],
+   ["Travel insurance incl. winter activities","","Check the snowmobile/sled exclusion."],
+   ["Tap-to-pay card with no foreign-transaction fee + a little EUR cash","","NOK, EUR and SEK on one trip."],
+   ["eSIM or roaming for Norway, Finland, Sweden","",""],
+   ["Plug adapter Type C/F","","If your home plugs are different."],
+   ["Apps: Ruter, Svipper, Waltti, HSL, Vy, aurora alert, Finnair, Norwegian","",""]]},
+  {h:"Clothing",items:[
+   ["Merino base layers","2–3 sets","Cotton is the enemy in −15 °C."],
+   ["Fleece / wool mid layer or light down","",""],
+   ["Waterproof shell or long down parka","","Tromsø = waterproof, Rovaniemi = warm."],
+   ["Waterproof or insulated ski trousers","","For husky, reindeer and snow play."],
+   ["Insulated waterproof boots with grip","","Wear on the plane."],
+   ["Ice grips (brodder)","Essential","Icy pavements are likely in every city. Clas Ohlson / XXL."],
+   ["Wool socks","1 pair/day",""],
+   ["Mittens + thin liner gloves","","Liners for phone and camera."],
+   ["Hat, buff / balaclava","",""],
+   ["City outfit + comfortable shoes","","Helsinki, Oslo, Sweden."],
+   ["Visitors: don't buy a full winter wardrobe at home","","Borrow or buy in Oslo (XXL, Clas Ohlson, Uniqlo). Bring thermal base layers if you have them."]]},
+  {h:"Gear and care",items:[
+   ["Headlamp","1 each",""],
+   ["Power banks + cables","","Cabin bag only. Phones die fast in the cold."],
+   ["Hand / toe warmers","","Never against a toddler's skin."],
+   ["Small tripod for aurora","","Fits the 8 kg carry-on."],
+   ["Sunglasses","","Low sun on snow."],
+   ["Water bottle + thermos","",""],
+   ["Day backpack","",""],
+   ["Lip balm, rich moisturiser, hand cream","","Cold, dry air."],
+   ["Prescription meds in original packaging","",""],
+   ["Foldable duffel","","For 27 Nov shopping."],
+   ["Luggage scale","","Weigh bags in Tromsø before 22 Nov."]]}
+ ]},
+ toddler:{label:"Toddler",groups:[
+  {h:"Clothing layers",items:[
+   ["Wool base layer set (merino top + long johns)","3 sets","No cotton next to skin."],
+   ["Wool or fleece mid layer","2","Between base layer and snowsuit."],
+   ["Insulated one-piece winter suit (vinterdress)","1","Waterproof outer is key for Tromsø slush."],
+   ["Waterproof shell suit (skalldress)","1","Optional; great in Tromsø."],
+   ["Insulated winter boots, half a size up","1 pair","Plus indoor shoes. Wear on the plane."],
+   ["Wool socks","6–8 pairs","Feet get damp first."],
+   ["Waterproof lined mittens, long cuffs","2–3 pairs","One pair will always be wet. Clip to sleeve."],
+   ["Wool balaclava","2","Best single item for −15 °C wind."],
+   ["Warm hat that ties","1–2",""],
+   ["Neck gaiter / buff","1",""],
+   ["Indoor clothes","5–6 days","Wash at the Rovaniemi accommodation."],
+   ["Pyjamas / sleep suit","3",""]]},
+  {h:"Getting around",items:[
+   ["Stroller with winter footmuff (kjørepose)","","Big wheels beat small city wheels on Tromsø ice."],
+   ["Child carrier","","For Fjellheisen, Cathedral steps, Suomenlinna and snowy paths."],
+   ["Travel car seat or booster vest","Decide","Finnish taxis: under-3s need a restraint. Airport buses and tour minibuses rarely supply one."],
+   ["Small plastic sled (pulk)","","Buy in Rovaniemi for a few euros."],
+   ["Reflective vest or hanging reflectors","","For stroller and suit."],
+   ["Clip-on LED light for the stroller","",""]]},
+  {h:"Skin, health and medicine",items:[
+   ["Oil-based cold cream (kuldekrem)","","Water-based lotion can freeze on cheeks."],
+   ["Child-safe lip balm","",""],
+   ["Children's paracetamol + dosing syringe","",""],
+   ["Children's ibuprofen","","If already used before."],
+   ["Digital thermometer","",""],
+   ["Saline nose drops + nasal aspirator","","Dry indoor air."],
+   ["Oral rehydration sachets","",""],
+   ["Plasters, nappy cream, prescriptions","",""],
+   ["Hand sanitiser, wet wipes","","Wipes freeze outdoors; keep a pack inside your jacket."],
+   ["Nappies + bags","2 days","Buy the rest locally."]]},
+  {h:"Food, sleep and flights",items:[
+   ["Thermos + insulated food jar","","Child food and milk over 100 ml are allowed at security."],
+   ["Snacks, a lot","","Cold burns energy."],
+   ["Sippy cup, bib, small cutlery","",""],
+   ["Comforter, blanket, sleeping bag","",""],
+   ["White-noise / night light","","Daylight swings confuse sleep."],
+   ["Flight bag: tablet, kids' headphones, new small toys, stickers","","4 flights in 7 days."],
+   ["Spare clothes in the cabin bag","","For the toddler and one adult."]]}
+ ]},
+ todo:{label:"Before you go",groups:[
+  {h:"To do before departure",items:[
+   ["Ask each place you stay for a cot","",""],
+   ["Decide: travel car seat or pre-booked taxis with child seats","",""],
+   ["Seat the toddler by a window if the car seat goes on board","",""],
+   ["Ask tour operators for minimum age and toddler suits","",""],
+   ["Health card and travel insurance sorted for everyone","",""],
+   ["Agree the winter gear plan (borrow vs buy in Oslo)","",""],
+   ["Double-check that ETIAS is still not required","",""],
+   ["Test-pack to 1 checked bag (23 kg) + 1 carry-on (8 kg) each","",""],
+   ["Share your exact landing time for 17 Nov","",""],
+   ["Check opening dates: SantaPark, Snowman World, Jul i Vinterland, Christmas Street","",""],
+   ["Book a parking space at Gardermoen airport","","Pre-book online before the trip."]]}
+ ]}
+};
+let checked={}; try{checked=JSON.parse(localStorage.getItem("nn-pack")||"{}")}catch(e){}
+let order={}; try{order=JSON.parse(localStorage.getItem("nn-order")||"{}")}catch(e){}
+function saveOrder(){try{localStorage.setItem("nn-order",JSON.stringify(order))}catch(e){}}
+const GRIP='<svg viewBox="0 0 12 16" aria-hidden="true"><circle cx="3" cy="3" r="1.5"/><circle cx="9" cy="3" r="1.5"/><circle cx="3" cy="8" r="1.5"/><circle cx="9" cy="8" r="1.5"/><circle cx="3" cy="13" r="1.5"/><circle cx="9" cy="13" r="1.5"/></svg>';
+function groupOrder(key,len){const o=(order[key]||[]).filter(i=>i<len);for(let i=0;i<len;i++)if(!o.includes(i))o.push(i);return o}
+let packTab="adults";
+function renderPack(){
+  document.getElementById("facts").innerHTML=`<ul class="hilite">${FACTS.map(f=>`<li><b>${esc(f[0])}.</b> ${esc(f[1])}</li>`).join("")}</ul>
+   <div class="wx"><div class="wx-h">Late-November weather, 2021–2025</div>
+   <div class="wx-scroll"><table><thead><tr><th>City</th><th>Typical high / low</th><th>What happened</th></tr></thead><tbody>
+   ${WX.map(w=>`<tr><td>${esc(w[0])}</td><td class="num">${esc(w[1])}</td><td>${esc(w[2])}</td></tr>`).join("")}</tbody></table></div></div>`;
+  document.getElementById("packTabs").innerHTML=Object.entries(PACK).map(([k,v])=>`<button class="chip" role="tab" type="button" aria-selected="${k===packTab}" data-k="${k}">${esc(v.label)}</button>`).join("");
+  const P=PACK[packTab];
+  document.getElementById("packList").innerHTML=P.groups.map((g,gi)=>{
+    const ids=g.items.map((_,i)=>`${packTab}-${gi}-${i}`); const n=ids.filter(id=>checked[id]).length;
+    const gk=`${packTab}-${gi}`;
+    return `<div class="pgroup" data-g="${gk}"><h3>${esc(g.h)}<small>${n}/${ids.length}</small></h3>
+      <div class="progress"><i style="width:${n/ids.length*100}%"></i></div>
+      ${groupOrder(gk,g.items.length).map(i=>{const it=g.items[i],id=ids[i];return `<label class="item ${checked[id]?"done":""}" for="${id}" data-i="${i}">
+        <button class="grip" type="button" aria-label="Drag to reorder (or use arrow keys): ${esc(it[0])}">${GRIP}</button>
+        <input type="checkbox" id="${id}" ${checked[id]?"checked":""}>
+        <span class="t"><b>${esc(it[0])}</b>${it[1]?`<span class="q">${esc(it[1])}</span>`:""}${it[2]?`<span class="n">${esc(it[2])}</span>`:""}</span></label>`}).join("")}
+    </div>`;
+  }).join("");
+}
+document.getElementById("packTabs").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;packTab=b.dataset.k;renderPack()});
+document.getElementById("packList").addEventListener("change",e=>{
+  if(e.target.type!=="checkbox")return; checked[e.target.id]=e.target.checked;
+  try{localStorage.setItem("nn-pack",JSON.stringify(checked))}catch(err){} renderPack();
+});
+
+/* Drag to reorder (mouse, touch, pen) + arrow keys on the handle */
+(function(){
+  const list=document.getElementById("packList"); let drag=null;
+  function commit(grp){order[grp.dataset.g]=[...grp.querySelectorAll(".item")].map(el=>+el.dataset.i);saveOrder()}
+  list.addEventListener("click",e=>{if(e.target.closest(".grip"))e.preventDefault()});
+  list.addEventListener("pointerdown",e=>{
+    const h=e.target.closest(".grip"); if(!h||e.button>0)return; e.preventDefault();
+    const el=h.closest(".item"); drag={el,grp:el.closest(".pgroup"),h,id:e.pointerId};
+    h.setPointerCapture(e.pointerId); el.classList.add("dragging"); document.body.classList.add("drag-on");
+  });
+  list.addEventListener("pointermove",e=>{
+    if(!drag||e.pointerId!==drag.id)return; e.preventDefault();
+    const sibs=[...drag.grp.querySelectorAll(".item")].filter(x=>x!==drag.el);
+    const next=sibs.find(x=>{const r=x.getBoundingClientRect();return e.clientY<r.top+r.height/2});
+    if(next){if(drag.el.nextElementSibling!==next)drag.grp.insertBefore(drag.el,next)}
+    else{const last=sibs[sibs.length-1]; if(last&&last.nextElementSibling!==drag.el)last.after(drag.el)}
+    if(e.clientY<40)scrollBy(0,-12); else if(e.clientY>innerHeight-40)scrollBy(0,12);
+  });
+  function end(e){if(!drag||e.pointerId!==drag.id)return;drag.el.classList.remove("dragging");document.body.classList.remove("drag-on");commit(drag.grp);drag=null}
+  list.addEventListener("pointerup",end); list.addEventListener("pointercancel",end);
+  list.addEventListener("keydown",e=>{
+    const h=e.target.closest(".grip"); if(!h||(e.key!=="ArrowUp"&&e.key!=="ArrowDown"))return; e.preventDefault();
+    const el=h.closest(".item"),grp=el.closest(".pgroup");
+    if(e.key==="ArrowUp"){const p=el.previousElementSibling;if(p&&p.classList.contains("item"))grp.insertBefore(el,p)}
+    else{const n=el.nextElementSibling;if(n&&n.classList.contains("item"))n.after(el)}
+    commit(grp); h.focus();
+  });
+})();
+
+/* ---------- Tabs ---------- */
+function show(view){
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===view));
+  document.getElementById("view-plan").hidden=view!=="plan";
+  document.getElementById("view-pack").hidden=view!=="pack";
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>show(t.dataset.view));
+if(location.hash==="#packing") show("pack");
+
+
+renderDays(); renderPack();
+</script>
+
+</body>
+</html>
