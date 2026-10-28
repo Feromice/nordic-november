@@ -242,7 +242,7 @@ body.drag-on{user-select:none;-webkit-user-select:none}
     <div class="toolbar" style="padding-block:4px 6px">
       <div class="legend">
         <span><span class="poi" style="pointer-events:none">Place</span> tap for map</span>
-        <span><i style="font-style:italic;color:var(--plana)">Italic purple</i> = adult plan B (bad weather)</span>
+        <span><i style="font-style:italic;color:var(--plana)">Italic purple</i> = adult or shared plan B (bad weather)</span>
         <span><i style="font-style:italic;color:var(--planb)">Italic green</i> = toddler plan B</span>
         <span style="color:var(--sky)">Blue = getting there</span>
       </div>
@@ -309,8 +309,7 @@ const DAYS = [
  light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
  hl:["Vigeland Park","Holmenkollen","Frognerseteren"],
  rows:[
- {t:"09:00–09:30",dur:"30 min",text:"Head out after breakfast.",go:"Tram 12 to Vigelandsparken."},
- {t:"09:30–11:15",dur:"1h45",text:"[[Vigeland Sculpture Park|Vigelandsparken]] in the low morning light (free, open 24h): 200+ granite and bronze sculptures, the Monolith, Angry Boy and the bridge."},
+ {t:"09:00–11:15",dur:"2h15",text:"Breakfast, then out to [[Vigeland Sculpture Park|Vigelandsparken]] while the low winter sun lights up the granite. The park is free and open around the clock, with more than 200 sculptures to wander between: the towering Monolith, the famous Angry Boy and the figures along the bridge.",go:"Tram 12 to Vigelandsparken."},
  {t:"11:15–11:45",dur:"30 min",text:"Up the hill to Holmenkollen.",go:"Walk to Majorstuen, then T-bane line 1 to Holmenkollen, ~20 min."},
  {t:"11:45–13:30",dur:"1h45",text:"[[Holmenkollen ski jump|Holmenkollbakken]] with the fjord below, then the [[Ski Museum and Ski Jump Tower|Holmenkollen Ski Museum]] (opens ~10:00).",a:"Rain or low cloud: skip the tower top (no view) and spend the time in the indoor Ski Museum.",note:"Check winter opening hours of the museum and tower."},
  {t:"13:30–14:45",dur:"1h15",text:"Walk uphill (~20 min) to [[Frognerseteren Restaurant|Frognerseteren Restaurant]]. Norwegian lunch by the fireplace and the famous apple cake.",go:"Or T-bane 1 one stop up to Frognerseteren."},
@@ -325,7 +324,7 @@ const DAYS = [
  {t:"08:30–10:30",dur:"2h",text:"At the airport: bag drop, security, boarding."},
  {kind:"flight",from:"Oslo",fromT:"10:30",to:"Tromsø",toT:"12:30",airline:"Norwegian",model:"Boeing 737"},
  {t:"12:30–14:00",dur:"1h30",city:"tromso",text:"Into town and check in at your accommodation in the city centre, near the harbour. Lunch nearby.",go:"Airport Express bus (luggage space, ~NOK 125 adult) or taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags.",b:"A taxi with a child seat is easiest with stroller and bags."},
- {t:"14:00–18:00",dur:"4h",text:"City walk on the west side of the Tromsø Bridge: along [[Storgata|Storgata Tromsø]], the northernmost [[McDonald's|McDonald's Storgata 70 Tromsø]] at Storgata 70, the [[harbour|Tromsø harbour]], [[Raketten Bar & Pølse|Raketten Bar og Pølse Tromsø]] (the smallest bar), and views of the [[Tromsø Bridge|Tromsøbrua]] and the Arctic Cathedral at blue hour.\n\nShort visits between warm shops, cafés and [[Nerstranda mall|Nerstranda Tromsø]].",a:"Heavy snow or rain: [[Polar Museum|Polarmuseet Tromsø]] by the harbour, indoors (~1h).",go:"All walkable from the accommodation."},
+ {t:"14:00–18:00",dur:"4h",text:"City walk on the west side of the Tromsø Bridge: along [[Storgata|Storgata Tromsø]], the northernmost [[McDonald's|McDonald's Storgata 70 Tromsø]], the [[harbour|Tromsø harbour]], [[Raketten Bar & Pølse|Raketten Bar og Pølse Tromsø]] (the smallest bar), and views of the [[Tromsø Bridge|Tromsøbrua]] and the Arctic Cathedral at blue hour.\n\nShort visits between warm shops, cafés and [[Nerstranda mall|Nerstranda Tromsø]].",a:"Heavy snow or rain: [[Polar Museum|Polarmuseet Tromsø]] by the harbour, indoors (~1h).",go:"All walkable from the accommodation."},
  {t:"18:00–23:00",dur:"5h",text:"Adult option: [[Northern lights chase|Tromsø northern lights tour]] or [[husky or reindeer sledding|Tromsø husky reindeer sledding evening]]. Often −10 °C or colder; aurora tours may drive towards the Finnish border if cloudy.",b:"Split up: tonight you and one host go while the other stays with the toddler; swap on 21 Nov. Family option: an evening [[Fjellheisen|Fjellheisen Tromsø]] ride, or a short taxi to [[Prestvannet lake|Prestvannet]] for 30–60 min of sky-watching with an aurora app.",go:"Tour operators pick up in the centre.",note:"Book ahead; most allow free cancellation on a bad forecast. Check minimum age."}
  ]},
 {d:21,dow:"Sat",city:["tromso"],title:"Arctic Cathedral, cable car and seals",
@@ -369,7 +368,7 @@ const DAYS = [
  hl:["Riverside walk","Flight south","Christmas Street","Stockmann windows"],
  rows:[
  {t:"06:00–09:30",city:"rovaniemi",text:"Breakfast, pack and check out.",note:"Check in online for the Helsinki flight."},
- {t:"09:30–13:05",dur:"3h35",text:"City or riverside walk: [[Jätkänkynttilä bridge|Jätkänkynttilä Rovaniemi]] and [[Lordi Square|Lordin aukio Rovaniemi]], a light lunch, then travel to the airport. Be there by 13:05.",a:"Bad weather: [[Arktikum|Arktikum Rovaniemi]], the Arctic science centre and museum, all indoors.",b:"[[Arktikum|Arktikum Rovaniemi]], with [[Pilke Science Centre|Pilke Rovaniemi]] next door: a hands-on forest centre for kids.",go:"On foot from the accommodation. To the airport: pre-booked taxi (child seat), ~15 min plus waiting time, or the Airport Express city pickup (check times at airportbus.fi).",note:"Check Arktikum's Tuesday opening hours."},
+ {t:"09:30–13:05",dur:"3h35",text:"City or riverside walk: [[Jätkänkynttilä bridge|Jätkänkynttilä Rovaniemi]] and [[Lordi Square|Lordin aukio Rovaniemi]], a light lunch, then travel to the airport. Be there by 13:05.",ab:"[[Arktikum|Arktikum Rovaniemi]], the Arctic science centre and museum, all indoors. Next door, [[Pilke Science Centre|Pilke Rovaniemi]] is a hands-on forest centre for kids.",go:"On foot from the accommodation. To the airport: pre-booked taxi (child seat), ~15 min plus waiting time, or the Airport Express city pickup (check times at airportbus.fi).",note:"Check Arktikum's Tuesday opening hours."},
  {t:"13:05–15:05",dur:"2h",text:"At the airport: bag drop, security, boarding."},
  {kind:"flight",from:"Rovaniemi",fromT:"15:05",to:"Helsinki",toT:"16:25",airline:"Finnair",model:"Airbus A320 family"},
  {t:"16:30–17:30",dur:"1h",city:"helsinki",text:"Check in at your accommodation right next to Helsinki Central Station.",go:"Train I or P from under the terminal to Helsinki Central, ~30 min, every ~10 min. ABC ticket €4.50 in the HSL app; the adult pushing the stroller rides free."},
@@ -460,6 +459,7 @@ function slot(r){
   }
   return pre+`<div class="slot"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
    <div class="content">${r.text?r.text.split("\n\n").map(x=>`<p class="main">${rich(x)}</p>`).join(""):""}
+   ${r.ab?`<p class="planb adultb"><b>Plan B for all</b>${rich(r.ab)}</p>`:""}
    ${r.a?`<p class="planb adultb"><b>Adult plan B · indoor</b>${rich(r.a)}</p>`:""}
    ${r.b?`<p class="planb"><b>Toddler plan B</b>${rich(r.b)}</p>`:""}
    ${r.go?`<p class="go">${GO}<span>${rich(r.go)}</span></p>`:""}
