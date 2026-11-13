@@ -119,6 +119,11 @@ h1 em{font-style:normal;color:var(--accent)}
 .slots{display:grid}
 .slot{display:grid;grid-template-columns:104px 1fr;gap:4px 14px;padding-block:12px;border-top:1px dashed var(--line)}
 .slot:first-child{border-top:0}
+.slot.sub{margin-left:22px;padding-left:12px;border-left:2px solid var(--line)}
+.slot.sub .time{font-size:.95em}
+.pts{margin:4px 0 0;padding-left:20px;display:grid;gap:3px}
+.pts li::marker{color:var(--accent)}
+@media (max-width:520px){.slot.sub{margin-left:10px;padding-left:8px}}
 .time{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;padding-top:1px;display:grid;gap:4px;align-content:start}
 .dur{font-size:11px;color:var(--muted)}
 .content{min-width:0;display:grid;gap:7px}
@@ -280,15 +285,14 @@ const CITY = {
 const DAYS = [
 {d:17,dow:"Tue",city:["oslo"],title:"Arrival day: Oslo's waterfront and Christmas lights",
  light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
- hl:["Gardermoen","Oslo Cathedral","MUNCH","Opera House","Jul i Vinterland"],
+ hl:["Gardermoen","MUNCH","Opera House","Oslo Cathedral","Jul i Vinterland"],
  rows:[
  {t:"12:00–13:00",dur:"1h",text:"Land at [[Oslo Airport Gardermoen|Oslo Airport Gardermoen]]. Passport control and bags.",note:"Send your host your exact landing time."},
  {t:"13:00–13:30",dur:"30 min",text:"Straight into the city centre.",go:"Flytoget airport express train to Oslo S, ~20 min, every 10–20 min. Buy in the Flytoget app or tap your card at the gate. Leave your big suitcase in a luggage locker at Oslo S.",note:"Check luggage locker availability at Oslo S."},
- {t:"13:30–14:00",dur:"30 min",text:"[[Oslo Cathedral|Oslo domkirke]] (Domkirken) at Stortorvet: the painted ceiling and the organ.",go:"5-min walk from Oslo S.",note:"Check opening hours; weekday hours can end mid-afternoon."},
- {t:"14:00–15:00",dur:"1h",text:"[[MUNCH museum|MUNCH Oslo]]: The Scream and the view from the top floor over the fjord.",go:"10-min walk back past Oslo S to Bjørvika."},
- {t:"15:00–15:45",dur:"45 min",text:"Walk up the marble roof of the [[Opera House|Oslo Opera House]] for sunset (~15:40) over the fjord.",a:"Heavy rain, snow or sleet: skip the slippery roof and watch the sunset from the Opera foyer windows or MUNCH's top floor.",go:"5-min walk from MUNCH."},
- {t:"15:45–16:15",dur:"30 min",text:"Stroll up [[Karl Johans gate|Karl Johans gate]], Oslo's main street, towards the Parliament.",a:"Duck into [[Steen & Strøm|Steen og Strøm Oslo]] department store or [[Paleet|Paleet Oslo]] shopping arcade on the way.",go:"On foot from the Opera, ~15 min."},
- {t:"16:15–17:00",dur:"45 min",text:"[[Jul i Vinterland|Spikersuppa Oslo]] Christmas market at Spikersuppa: ice rink, Ferris wheel, food stalls. Try to stay awake until ~21:00 to beat jet lag.",go:"Collect your suitcase at Oslo S on the way home.",note:"Check the 2026 opening date (usually mid-Nov)."}
+ {t:"13:30–14:45",dur:"1h15",text:"[[MUNCH museum|MUNCH Oslo]]: The Scream and the view from the top floor over the fjord.",go:"10-min walk from Oslo S to Bjørvika."},
+ {t:"14:45–15:45",dur:"1h",text:"Walk up the marble roof of the [[Opera House|Oslo Opera House]] for sunset (~15:40) over the fjord.",a:"Heavy rain, snow or sleet: skip the slippery roof and watch the sunset from the Opera foyer windows or MUNCH's top floor.",go:"5-min walk from MUNCH."},
+ {t:"15:45–16:30",dur:"45 min",text:"[[Oslo Cathedral|Oslo domkirke]] (Domkirken) at Stortorvet: the painted ceiling and the organ. Then stroll up [[Karl Johans gate|Karl Johans gate]], Oslo's main street, towards the Parliament.",a:"Duck into [[Steen & Strøm|Steen og Strøm Oslo]] department store or [[Paleet|Paleet Oslo]] shopping arcade on the way.",go:"On foot from the Opera, ~15 min to Stortorvet.",note:"Check the cathedral's opening hours; on weekdays it can close mid-afternoon. If it is shut, see the outside and go straight on to Karl Johans gate."},
+ {t:"16:30–18:00",dur:"1h30",text:"[[Jul i Vinterland|Spikersuppa Oslo]] Christmas market at Spikersuppa: ice rink, Ferris wheel, food stalls. Try to stay awake until ~21:00 to beat jet lag.",go:"Collect your suitcase at Oslo S on the way home.",note:"Check the 2026 opening date (usually mid-Nov)."}
  ]},
 {d:18,dow:"Wed",city:["oslo"],title:"Ahus, Bygdøy museums and the harbour",
  light:{c:"Oslo",tw:[7.75,16.3],sun:[8.42,15.67],txt:"Sun 08:25–15:40"},
@@ -317,26 +321,26 @@ const DAYS = [
  ]},
 {d:20,dow:"Fri",city:["oslo","tromso"],title:"Fly north to Tromsø",
  light:{c:"Tromsø",tw:[8.5,14.5],sun:[10.5,12.5],txt:"Sun 10:30–12:30, twilight 08:30–14:30"},
- hl:["Flight north","Tromsø harbour","Tromsø Bridge","Aurora chase"],
+ hl:["Flight north","Arctic Cathedral","Fjellheisen","City walk"],
  rows:[
  {t:"06:00–07:30",city:"oslo",text:"Wake up, breakfast, final packing.",note:"Check in online the day before. This flight allows 2 checked bags each, but the Finnair flights from 22 Nov allow only 1, so pack for 1."},
  {t:"07:30–08:30",dur:"1h",text:"Drive to Gardermoen.",go:"By car, ~45–50 min, plus parking and the walk to the terminal. Allow 1 hour."},
  {t:"08:30–10:30",dur:"2h",text:"At the airport: bag drop, security, boarding."},
  {kind:"flight",from:"Oslo",fromT:"10:30",to:"Tromsø",toT:"12:30",airline:"Norwegian",model:"Boeing 737"},
  {t:"12:30–14:00",dur:"1h30",city:"tromso",text:"Into town and check in at your accommodation in the city centre, near the harbour. Lunch nearby.",go:"Airport Express bus (luggage space, ~NOK 125 adult) or taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags.",b:"A taxi with a child seat is easiest with stroller and bags."},
- {t:"14:00–18:00",dur:"4h",text:"City walk on the west side of the Tromsø Bridge: along [[Storgata|Storgata Tromsø]], the northernmost [[McDonald's|McDonald's Storgata 70 Tromsø]], the [[harbour|Tromsø harbour]], [[Raketten Bar & Pølse|Raketten Bar og Pølse Tromsø]] (the smallest bar), and views of the [[Tromsø Bridge|Tromsøbrua]] and the Arctic Cathedral at blue hour.\n\nShort visits between warm shops, cafés and [[Nerstranda mall|Nerstranda Tromsø]].",a:"Heavy snow or rain: [[Polar Museum|Polarmuseet Tromsø]] by the harbour, indoors (~1h).",go:"All walkable from the accommodation."},
- {t:"18:00–23:00",dur:"5h",text:"Adult option: [[Northern lights chase|Tromsø northern lights tour]] or [[husky or reindeer sledding|Tromsø husky reindeer sledding evening]]. Often −10 °C or colder; aurora tours may drive towards the Finnish border if cloudy.",b:"Split up: tonight you and one host go while the other stays with the toddler; swap on 21 Nov. Family option: an evening [[Fjellheisen|Fjellheisen Tromsø]] ride, or a short taxi to [[Prestvannet lake|Prestvannet]] for 30–60 min of sky-watching with an aurora app.",go:"Tour operators pick up in the centre.",note:"Book ahead; most allow free cancellation on a bad forecast. Check minimum age."}
+ {t:"14:00–15:00",dur:"1h",text:"[[Arctic Cathedral|Ishavskatedralen]] across the bridge.",go:"Bus 26 (also 20, 24, 28), ~10 min, NOK 50 single or NOK 140 for 24h; under-6s ride free. Or walk ~20 min over the bridge.",note:"Check winter visiting hours; often limited."},
+ {t:"15:00–18:00",dur:"3h",text:"[[Fjellheisen cable car|Fjellheisen Tromsø]] up to Storsteinen: the last polar-night glow, then the city lights below. Stop by the Fjellstua café on top for something warm.",a:"Strong wind closes the cable car: [[Polaria|Polaria Tromsø]] instead, and swap with the 21 Nov afternoon.",b:"The stroller goes on the cable car; carry the toddler on the icy viewing deck.",go:"Walk ~15 min from the Cathedral, or bus 26 to Solliveien. Bus 26 back to town.",note:"Check on the day."},
+ {t:"18:00–21:00",dur:"3h",text:"City walk on the west side of the Tromsø Bridge:\n- Along [[Storgata|Storgata Tromsø]], the main street\n- The northernmost [[McDonald's|McDonald's Storgata 70 Tromsø]]\n- [[Tromsø Cathedral|Tromsø domkirke]], the wooden cathedral\n- [[Tromsø Library|Tromsø bibliotek]] and its striking roof\n- The [[harbour|Tromsø harbour]]\n- [[Raketten Bar & Pølse|Raketten Bar og Pølse Tromsø]], the smallest bar\n- [[Magic Ice Bar|Magic Ice Tromsø]], everything carved from ice\n- Views of the [[Tromsø Bridge|Tromsøbrua]] and the Arctic Cathedral lit up after dark\n\nShort visits between warm shops, cafés and [[Nerstranda mall|Nerstranda Tromsø]].",go:"All walkable from the accommodation.",note:"Tromsø Cathedral and the library may be closed by evening; see them from outside. Magic Ice is open until midnight on Fri and Sat; under-4s go free, warm ponchos are lent at the door."}
  ]},
-{d:21,dow:"Sat",city:["tromso"],title:"Arctic Cathedral, cable car and seals",
+{d:21,dow:"Sat",city:["tromso"],title:"Sami culture, reindeer and seals",
  light:{c:"Tromsø",tw:[8.5,14.5],sun:[10.5,12.5],txt:"Sun 10:30–12:30, twilight 08:30–14:30"},
- hl:["Arctic Cathedral","Fjellheisen","Polaria","Library"],
+ hl:["Sami culture","Reindeer sledding","Polaria","City walk"],
  rows:[
  {t:"07:00–09:00",text:"Breakfast at the accommodation, dress warm."},
- {t:"09:30–10:15",dur:"45 min",text:"[[Arctic Cathedral|Ishavskatedralen]] across the bridge.",go:"Bus 26 (also 20, 24, 28), ~10 min, NOK 50 single or NOK 140 for 24h; under-6s ride free. Or walk ~20 min over the bridge.",note:"Check winter visiting hours; often limited."},
- {t:"10:30–13:00",dur:"2h30",text:"[[Fjellheisen cable car|Fjellheisen Tromsø]] up to Storsteinen in the brightest hours: pink polar-night light over the city. Lunch at the Fjellstua café on top.",a:"Strong wind closes the cable car: go to [[Polaria|Polaria Tromsø]] instead.",b:"The stroller goes on the cable car; carry the toddler on the icy viewing deck.",go:"Walk ~15 min from the Cathedral, or bus 26 to Solliveien. Bus 26 back to town.",note:"Check on the day."},
- {t:"13:30–15:30",dur:"2h",text:"[[Polaria|Polaria Tromsø]] arctic aquarium: bearded seals and feeding sessions.",b:"Top toddler pick: indoors, short, animals.",go:"10–15 min walk south along the waterfront.",note:"Check seal feeding times."},
- {t:"15:30–17:00",dur:"1h30",text:"[[Tromsø Library|Tromsø bibliotek]]: striking architecture, warm, kids' corner. Or a rest at the accommodation."},
- {t:"Evening alt.",text:"Adult option: northern lights chase, night 2 (swap adults). Or a [[midnight concert at the Arctic Cathedral|Ishavskatedralen]].",b:"Same family options as 20 Nov: Fjellheisen at night or Prestvannet lake."}
+ {t:"09:00–14:30",dur:"5h30",text:"[[Sami culture and reindeer sledding tour|Tromsø Sami reindeer sledding tour]]: meet a Sami reindeer herder, feed the reindeer, a reindeer sled ride, and Sami stories and joik around the fire in a lavvo (Sami tent). A light lunch is included, often bidos, the traditional reindeer stew.",b:"The toddler rides on a lap in the sled; feeding the reindeer is the highlight. A warm lavvo is close by for breaks.",go:"The tour bus picks up in the centre and drives ~30–45 min out of town.",note:"Book ahead and check the minimum age. With little snow, some camps swap the sled ride for a walk with the reindeer."},
+ {t:"14:30–17:00",dur:"2h30",text:"[[Polaria|Polaria Tromsø]] arctic aquarium: bearded seals and feeding sessions.",b:"Top toddler pick: indoors, short, animals.",go:"Ask the tour bus to drop you in the centre, then a 10–15 min walk south along the waterfront.",note:"Check seal feeding times."},
+ {t:"17:00–18:00",dur:"1h",text:"Dinner, two Asian options in the centre:\n- [[Lotus Mat og Vinhus|Lotus Mat og Vinhus Sjøgata 39 Tromsø]]: Chinese food that grew into a fusion menu with Japanese dishes and local reindeer and lamb\n- [[Asian House|Asian House Storgata 69 Tromsø]]: noodles, dumplings, curries and sushi, quick and casual",go:"Both 10–15 min walk from Polaria.",note:"Book a table for Saturday evening."},
+ {t:"18:00–21:00",dur:"3h",text:"Continue the city walk with whatever you left out on 20 Nov.\n\nCity walk on the west side of the Tromsø Bridge:\n- Along [[Storgata|Storgata Tromsø]], the main street\n- The northernmost [[McDonald's|McDonald's Storgata 70 Tromsø]]\n- [[Tromsø Cathedral|Tromsø domkirke]], the wooden cathedral\n- [[Tromsø Library|Tromsø bibliotek]] and its striking roof\n- The [[harbour|Tromsø harbour]]\n- [[Raketten Bar & Pølse|Raketten Bar og Pølse Tromsø]], the smallest bar\n- [[Magic Ice Bar|Magic Ice Tromsø]], everything carved from ice\n- Views of the [[Tromsø Bridge|Tromsøbrua]] and the Arctic Cathedral lit up after dark\n\nShort visits between warm shops, cafés and [[Nerstranda mall|Nerstranda Tromsø]].",go:"All walkable from the accommodation.",note:"Tromsø Cathedral and the library may be closed by evening; see them from outside. Magic Ice is open until midnight on Fri and Sat; under-4s go free, warm ponchos are lent at the door."}
  ]},
 {d:22,dow:"Sun",city:["tromso","rovaniemi"],title:"Into Finland and Santa's world",
  light:{c:"Rovaniemi (Finnish time)",tw:[8.5,15.5],sun:[10,14],txt:"Sun 10:00–14:00"},
@@ -356,11 +360,10 @@ const DAYS = [
  hl:["Santa Claus Village","Santa Claus Office","Reindeer ride","Husky ride"],
  rows:[
  {t:"All day",text:"A whole day at the Arctic Circle in [[Santa Claus Village|Santa Claus Village Rovaniemi]]. Go early; queues grow through the day.",go:"Bus 8 from the city-centre stop nearest the accommodation (find it in the Waltti app), ~30 min, weekday runs every ~45 min. €3.30 single in the Waltti app, stroller free."},
- {t:"Arctic Circle",text:"The Arctic Circle line and [[Santa Claus Main Post Office|Santa Claus Main Post Office]]. Send a card to arrive at Christmas."},
- {t:"Meet Santa",text:"[[Santa Claus Office|Santa Claus Office Rovaniemi]]: meet Santa (free visit, photos cost extra).",b:"The toddler's highlight. Go before nap time."},
- {t:"Lunch",text:"Lunch in the village."},
- {t:"Reindeer & huskies",text:"[[Reindeer sleigh ride|Santa Claus Reindeer Rovaniemi]] in the village for everyone, and reindeer feeding. Adult option: a longer husky safari (2–3h) in the last daylight.",b:"Short reindeer or husky ride with the toddler on a lap, and reindeer petting.",note:"Without snow, husky farms often run wheeled dog-carts instead of sleds. Check age limits."},
- {t:"Village",text:"The Arctic Circle crossing certificate, shops and cafés.",note:"Snowman World (ice slide, ice bar) usually opens in early December, so it is likely closed on your dates."},
+ {t:"Arctic Circle",sub:1,text:"Cross the Arctic Circle line and collect your crossing certificate. Send a card from [[Santa Claus Main Post Office|Santa Claus Main Post Office]] to arrive at Christmas, then browse the shops and cafés.",note:"Snowman World (ice slide, ice bar) usually opens in early December, so it is likely closed on your dates."},
+ {t:"Meet Santa",sub:1,text:"[[Santa Claus Office|Santa Claus Office Rovaniemi]]: meet Santa (free visit, photos cost extra).",b:"The toddler's highlight. Go before nap time."},
+ {t:"Lunch",sub:1,text:"Lunch in the village."},
+ {t:"Reindeer & huskies",sub:1,text:"[[Reindeer sleigh ride|Santa Claus Reindeer Rovaniemi]] in the village for everyone, and reindeer feeding. Adult option: a longer husky safari (2–3h) in the last daylight.",b:"Short reindeer or husky ride with the toddler on a lap, and reindeer petting.",note:"Without snow, husky farms often run wheeled dog-carts instead of sleds. Check age limits."},
  {t:"Evening alt.",text:"[[SantaPark|SantaPark Rovaniemi]] if you did not go on 22 Nov (closes 18:00). Or adult option: sauna and ice-hole swim.",b:"[[Santasport spa|Santasport Rovaniemi]]: warm kids' pool.",go:"SantaPark is ~2 km from the village: taxi or Santa's Express shuttle. Don't walk the road in the dark with a stroller."}
  ]},
 {d:24,dow:"Tue",city:["rovaniemi","helsinki"],title:"Riverside walk, then south to Helsinki",
@@ -448,6 +451,10 @@ function strip(l){
    <i class="sun" style="left:${pct(l.sun[0])};width:calc(${pct(l.sun[1])} - ${pct(l.sun[0])})"></i></div>
   <div class="ticks"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></div></div>`;
 }
+function para(x){
+  const ls=x.split("\n"),head=ls.filter(l=>!l.startsWith("- ")),pts=ls.filter(l=>l.startsWith("- "));
+  return (head.length?`<p class="main">${rich(head.join(" "))}</p>`:"")+(pts.length?`<ul class="pts">${pts.map(l=>`<li>${rich(l.slice(2))}</li>`).join("")}</ul>`:"");
+}
 function slot(r){
   let pre="";
   if(r.city){const c=CITY[r.city];pre=`<div class="citybreak" style="color:${c.c}">In ${c.name}</div>`+(r.cnote?`<p class="note citynote">${esc(r.cnote)}</p>`:"");}
@@ -457,8 +464,8 @@ function slot(r){
      <div class="fl-mid">${PLANE}<span class="fl-air">${esc(r.airline)}</span><span class="fl-model">${esc(r.model)}</span></div>
      <div class="fl-end"><small>Arrive</small><b>${esc(r.to)}</b><span>${esc(r.toT)}</span></div></div>`;
   }
-  return pre+`<div class="slot"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
-   <div class="content">${r.text?r.text.split("\n\n").map(x=>`<p class="main">${rich(x)}</p>`).join(""):""}
+  return pre+`<div class="slot${r.sub?" sub":""}"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
+   <div class="content">${r.text?r.text.split("\n\n").map(para).join(""):""}
    ${r.ab?`<p class="planb adultb"><b>Plan B for all</b>${rich(r.ab)}</p>`:""}
    ${r.a?`<p class="planb adultb"><b>Adult plan B · indoor</b>${rich(r.a)}</p>`:""}
    ${r.b?`<p class="planb"><b>Toddler plan B</b>${rich(r.b)}</p>`:""}
