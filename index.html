@@ -119,11 +119,11 @@ h1 em{font-style:normal;color:var(--accent)}
 .slots{display:grid}
 .slot{display:grid;grid-template-columns:104px 1fr;gap:4px 14px;padding-block:12px;border-top:1px dashed var(--line)}
 .slot:first-child{border-top:0}
-.slot.sub{margin-left:22px;padding-left:12px;border-left:2px solid var(--line)}
-.slot.sub .time{font-size:.95em}
+.slot.nest{margin-left:12px;padding-left:10px;border-left:2px solid var(--line);grid-template-columns:80px 1fr}
+.slot.nest .time{font-size:.95em}
 .pts{margin:4px 0 0;padding-left:20px;display:grid;gap:3px}
 .pts li::marker{color:var(--accent)}
-@media (max-width:520px){.slot.sub{margin-left:10px;padding-left:8px}}
+@media (max-width:560px){.slot.nest{margin-left:6px;padding-left:10px;grid-template-columns:1fr}}
 .time{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;padding-top:1px;display:grid;gap:4px;align-content:start}
 .dur{font-size:11px;color:var(--muted)}
 .content{min-width:0;display:grid;gap:7px}
@@ -472,7 +472,7 @@ function slot(r){
      <div class="fl-mid">${PLANE}<span class="fl-air">${esc(r.airline)}</span><span class="fl-model">${esc(r.model)}</span></div>
      <div class="fl-end"><small>Arrive</small><b>${esc(r.to)}</b><span>${esc(r.toT)}</span></div></div>`;
   }
-  return pre+`<div class="slot${r.sub?" sub":""}"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
+  return pre+`<div class="slot${r.sub?" nest":""}"><div class="time"><span>${esc(r.t)}</span>${r.dur?`<span class="dur">${esc(r.dur)}</span>`:""}</div>
    <div class="content">${r.text?r.text.split("\n\n").map(para).join(""):""}
    ${r.ab?`<p class="planb adultb"><b>Plan B for all</b>${rich(r.ab)}</p>`:""}
    ${r.a?`<p class="planb adultb"><b>Adult plan B · indoor</b>${rich(r.a)}</p>`:""}
