@@ -136,6 +136,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .planb b{font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-right:6px}
 .go{margin:0;font-size:14px;color:var(--sky);display:flex;gap:8px;align-items:flex-start}
 .go svg{flex:none;width:16px;height:16px;margin-top:3px}
+.goic{display:inline-flex;gap:3px;flex:none}
+.goic>span{display:inline-flex}
+.legend .goic svg{width:15px;height:15px;vertical-align:-3px}
 .note{margin:0;font-size:13px;color:var(--warn);background:var(--warn-soft);padding:5px 10px;border-radius:8px}
 .note b{letter-spacing:.05em}
 
@@ -249,7 +252,7 @@ body.drag-on{user-select:none;-webkit-user-select:none}
         <span><span class="poi" style="pointer-events:none">Place</span> tap for map</span>
         <span><i style="font-style:italic;color:var(--plana)">Italic purple</i> = adult or shared plan B (bad weather)</span>
         <span><i style="font-style:italic;color:var(--planb)">Italic green</i> = toddler plan B</span>
-        <span style="color:var(--sky)">Blue = getting there</span>
+        <span style="color:var(--sky)">Blue = getting there: <span class="goic" data-ic="pt"></span> public transport, <span class="goic" data-ic="walk"></span> walkable, <span class="goic" data-ic="car"></span> car</span>
       </div>
       <div class="listctl">
         <button class="btn" id="expandAll" type="button">+ Expand all</button>
@@ -324,7 +327,7 @@ const DAYS = [
  hl:["Flight north","Arctic Cathedral","Fjellheisen","City walk"],
  rows:[
  {t:"06:00–07:30",city:"oslo",text:"Wake up, breakfast, final packing.",note:"Check in online the day before. This flight allows 2 checked bags each, but the Finnair flights from 22 Nov allow only 1, so pack for 1."},
- {t:"07:30–08:30",dur:"1h",text:"Drive to Gardermoen.",go:"By car, ~45–50 min, plus parking and the walk to the terminal. Allow 1 hour."},
+ {t:"07:30–08:30",dur:"1h",text:"Drive to Gardermoen.",go:"By car, ~45–50 min, plus parking and the walk to the terminal. Allow 1 hour.",walk:0},
  {t:"08:30–10:30",dur:"2h",text:"At the airport: bag drop, security, boarding."},
  {kind:"flight",from:"Oslo",fromT:"10:30",to:"Tromsø",toT:"12:30",airline:"Norwegian",model:"Boeing 737"},
  {t:"12:30–14:00",dur:"1h30",city:"tromso",text:"Into town and check in at your accommodation in the city centre, near the harbour. Lunch nearby.",go:"Airport Express bus (luggage space, ~NOK 125 adult) or taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags.",b:"A taxi with a child seat is easiest with stroller and bags."},
@@ -350,7 +353,7 @@ const DAYS = [
  {t:"07:45–08:25",dur:"40 min",text:"To the airport.",go:"Airport Express bus (luggage space, check the early-morning timetable) or a pre-booked taxi (~10 min, ask for a child seat). City bus 40/42 is cheapest (NOK 50) but has little room for bags."},
  {t:"08:25–10:25",dur:"2h",text:"At the airport: bag drop, security, boarding."},
  {kind:"flight",from:"Tromsø",fromT:"10:25",to:"Rovaniemi",toT:"12:35",airline:"Finnair",model:"Airbus A320 family"},
- {t:"13:00–14:30",dur:"1h30",city:"rovaniemi",cnote:"Finland is 1 hour ahead of Norway. Set your watch forward; all times from here are Finnish time.",text:"Check in at your accommodation in the city centre. Lunch.",go:"Airport Express waits for each flight and stops in the city centre, a short walk from your accommodation (~€7–8, card only). Taxi ~€25–35, but a child under 3 needs a car seat: bring one or pre-book. Bus 8 does not go to the airport."},
+ {t:"13:00–14:30",dur:"1h30",city:"rovaniemi",cnote:"Finland is 1 hour ahead of Norway. Set your watch forward; all times from here are Finnish time.",text:"Check in at your accommodation in the city centre. Lunch.",go:"Airport Express waits for each flight and stops in the city centre, a short walk from your accommodation (~€7–8, card only). Taxi ~€25–35, but a child under 3 needs a car seat: bring one or pre-book. Bus 8 does not go to the airport.",walk:0},
  {t:"14:30–18:00",dur:"3h30",text:"[[SantaPark|SantaPark Rovaniemi]]: Santa's underground cavern, so darkness and weather do not matter. Closes 18:00.",b:"If SantaPark is not open yet: [[Arktikum|Arktikum Rovaniemi]] (walkable from the accommodation) or straight to Santa Claus Village, open daily. SantaPark lends pushchairs for a €30 deposit.",go:"Bus 8 does NOT stop at SantaPark. Use the Santa's Express shuttle or a taxi. Bus 8 runs rarely on Sundays.",note:"Check the SantaPark 2026 opening date; the season often starts mid/late Nov."},
  {t:"Swap",text:"Easier option: swap 22 and 23 Nov. Today becomes an easy afternoon at Arktikum and the riverside; Santa Claus Village and SantaPark move to Monday, when Bus 8 runs every ~45 min.",b:"Better for the toddler: fewer bus waits in the dark."},
  {t:"Evening",text:"Adult option: minibus aurora hunt, or a snowmobile tour if there is enough snow (drivers need a driving licence).",b:"Walk to the riverside by the [[Jätkänkynttilä bridge|Jätkänkynttilä Rovaniemi]] or [[Ounasvaara hill|Ounasvaara]] for 30–60 min of sky-watching; one adult does the tour while another stays.",note:"In 2022 and 2024 late November was almost snow-free; snowmobile tours may not run yet."}
@@ -364,7 +367,7 @@ const DAYS = [
  {t:"Meet Santa",sub:1,text:"[[Santa Claus Office|Santa Claus Office Rovaniemi]]: meet Santa (free visit, photos cost extra).",b:"The toddler's highlight. Go before nap time."},
  {t:"Lunch",sub:1,text:"Lunch in the village."},
  {t:"Reindeer & huskies",sub:1,text:"[[Reindeer sleigh ride|Santa Claus Reindeer Rovaniemi]] in the village for everyone, and reindeer feeding. Adult option: a longer husky safari (2–3h) in the last daylight.",b:"Short reindeer or husky ride with the toddler on a lap, and reindeer petting.",note:"Without snow, husky farms often run wheeled dog-carts instead of sleds. Check age limits."},
- {t:"Evening alt.",text:"[[SantaPark|SantaPark Rovaniemi]] if you did not go on 22 Nov (closes 18:00). Or adult option: sauna and ice-hole swim.",b:"[[Santasport spa|Santasport Rovaniemi]]: warm kids' pool.",go:"SantaPark is ~2 km from the village: taxi or Santa's Express shuttle. Don't walk the road in the dark with a stroller."}
+ {t:"Evening alt.",text:"[[SantaPark|SantaPark Rovaniemi]] if you did not go on 22 Nov (closes 18:00). Or adult option: sauna and ice-hole swim.",b:"[[Santasport spa|Santasport Rovaniemi]]: warm kids' pool.",go:"SantaPark is ~2 km from the village: taxi or Santa's Express shuttle. Don't walk the road in the dark with a stroller.",walk:0}
  ]},
 {d:24,dow:"Tue",city:["rovaniemi","helsinki"],title:"Riverside walk, then south to Helsinki",
  light:{c:"Rovaniemi",tw:[8.5,15.5],sun:[10,14],txt:"Rovaniemi sun 10:00–14:00 · Helsinki 08:50–15:30"},
@@ -434,8 +437,10 @@ const DAYS = [
 const PLANE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>';
 const GO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21l-1-4M16 21l1-4"/><circle cx="8" cy="14" r=".5"/><circle cx="16" cy="14" r=".5"/></svg>';
 
+const WALK='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>';
 const CAR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v2H3z"/><path d="M5 11h14"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="16.5" cy="18.5" r="1.5"/></svg>';
 document.querySelectorAll(".route .car").forEach(el=>el.innerHTML=CAR);
+document.querySelectorAll(".legend .goic").forEach(el=>el.innerHTML={pt:GO,walk:WALK,car:CAR}[el.dataset.ic]);
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function rich(s){
   return esc(s).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,label,q)=>{
@@ -455,6 +460,13 @@ function para(x){
   const ls=x.split("\n"),head=ls.filter(l=>!l.startsWith("- ")),pts=ls.filter(l=>l.startsWith("- "));
   return (head.length?`<p class="main">${rich(head.join(" "))}</p>`:"")+(pts.length?`<ul class="pts">${pts.map(l=>`<li>${rich(l.slice(2))}</li>`).join("")}</ul>`:"");
 }
+const RX_WALK=/\b(walk|walking|walkable|on foot)\b/i, RX_PT=/\b(bus|tram|t-bane|train|flytoget|ferry|shuttle|metro|taxi|express)\b/i, RX_CAR=/\bcar\b/i;
+function goIcons(r){
+  const w=r.walk!==0&&RX_WALK.test(r.go), pt=RX_PT.test(r.go), car=RX_CAR.test(r.go);
+  const ic=[]; if(pt) ic.push(['Public transport',GO]); else if(car) ic.push(['By car',CAR]); if(w) ic.push(['Walkable',WALK]);
+  if(!ic.length) ic.push(['Getting there',GO]);
+  return `<span class="goic">${ic.map(([t,svg])=>`<span title="${t}" aria-label="${t}">${svg}</span>`).join("")}</span>`;
+}
 function slot(r){
   let pre="";
   if(r.city){const c=CITY[r.city];pre=`<div class="citybreak" style="color:${c.c}">In ${c.name}</div>`+(r.cnote?`<p class="note citynote">${esc(r.cnote)}</p>`:"");}
@@ -469,7 +481,7 @@ function slot(r){
    ${r.ab?`<p class="planb adultb"><b>Plan B for all</b>${rich(r.ab)}</p>`:""}
    ${r.a?`<p class="planb adultb"><b>Adult plan B · indoor</b>${rich(r.a)}</p>`:""}
    ${r.b?`<p class="planb"><b>Toddler plan B</b>${rich(r.b)}</p>`:""}
-   ${r.go?`<p class="go">${GO}<span>${rich(r.go)}</span></p>`:""}
+   ${r.go?`<p class="go">${goIcons(r)}<span>${rich(r.go)}</span></p>`:""}
    ${r.note?`<p class="note"><b>CHECK</b> ${rich(r.note)}</p>`:""}</div></div>`;
 }
 
