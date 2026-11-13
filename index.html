@@ -514,9 +514,11 @@ function pickDay(n){
   sel=n; try{localStorage.setItem("nn-day",n)}catch(e){}
   try{history.replaceState(null,"","#nov"+n)}catch(e){}
   renderDays();
-  const bar=document.getElementById("dstrip"), pin=document.querySelector(".pin");
-  const anchor=(pin&&getComputedStyle(pin).display!=="none")?pin:bar;
-  const y=anchor.getBoundingClientRect().top+window.scrollY;
+  /* Start the new day at its title, just under whichever bar is pinned */
+  const pin=document.querySelector(".pin"), bar=document.getElementById("dstrip");
+  const stuck=(pin&&getComputedStyle(pin).display!=="none")?pin:bar;
+  const title=document.querySelector(".dview");
+  const y=Math.max(0,title.getBoundingClientRect().top+window.scrollY-stuck.offsetHeight);
   if(window.scrollY>y) window.scrollTo(0,y);
 }
 function renderDays(){
